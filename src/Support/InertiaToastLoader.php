@@ -4,9 +4,13 @@ namespace LaravelInertiaToast\Support;
 
 class InertiaToastLoader
 {
-    protected array $loaded = [];
     public function flash(): array
     {
-        return $this->loaded;
+        return [
+            'type' => session('type'),
+            'title' => session('title'),
+            'message' => session('message'),
+            'duration' => session('duration', 3000),
+        ];
     }
 }

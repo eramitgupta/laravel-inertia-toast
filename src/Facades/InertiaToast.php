@@ -12,6 +12,6 @@ class InertiaToast extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return InertiaToastLoader::class;
+        return 'inertia-toast';
     }
 }

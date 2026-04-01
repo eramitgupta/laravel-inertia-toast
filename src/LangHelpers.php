@@ -1,1 +1,17 @@
 <?php
+
+if (! function_exists('toast')) {
+    function toast(
+        string $message,
+        string $type = 'success',
+        ?string $title = null,
+        int $duration = 3000
+    ): void {
+        session()->flash('toast', [
+            'type' => $type,
+            'title' => $title,
+            'message' => $message,
+            'duration' => $duration,
+        ]);
+    }
+}

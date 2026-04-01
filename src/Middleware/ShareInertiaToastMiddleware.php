@@ -4,22 +4,29 @@ namespace LaravelInertiaToast\Middleware;
 
 use Closure;
 use Inertia\Inertia;
-use LaravelInertiaToast\Facades\InertiaToast;
 
 class ShareInertiaToastMiddleware
 {
     public function handle($request, Closure $next)
     {
-        $translations = InertiaToast::flash();
+        Inertia::share([
+            'toast' => function () use ($request) {
+                if ($request->session()->has('toast')) {
+                    return $request->session()->get('toast');
+                }
 
-        if (! empty($translations)) {
-            Inertia::share([
-                'type' => $request->session()->get('type'),
-                'title' => $request->session()->get('title'),
-                'message' => $request->session()->get('message'),
-                'duration' => $request->session()->get('duration', 3000),
-            ]);
-        }
+                if ($request->session()->has('message')) {
+                    return [
+                        'type' => $request->session()->get('type', 'success'),
+                        'title' => $request->session()->get('title'),
+                        'message' => $request->session()->get('message'),
+                        'duration' => $request->session()->get('duration', 3000),
+                    ];
+                }
+
+                return [];
+            },
+        ]);
 
         return $next($request);
     }

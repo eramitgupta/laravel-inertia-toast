@@ -5,20 +5,24 @@ namespace LaravelInertiaToast;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
-use Inertia\Inertia;
 use LaravelInertiaToast\Facades\InertiaToast;
 use LaravelInertiaToast\Middleware\ShareInertiaToastMiddleware;
+use LaravelInertiaToast\Support\InertiaToastLoader;
 
 class InertiaToastServiceProvider extends ServiceProvider
 {
-    public function register(): void {}
+    public function register(): void
+    {
+        $this->app->singleton('inertia-toast', function () {
+            return new InertiaToastLoader;
+        });
+    }
 
     public function boot(): void
     {
         $this->loadHelpers();
         $this->registerAlias();
         $this->registerMiddleware();
-        $this->shareLangWithInertia();
     }
 
     protected function loadHelpers(): void
@@ -39,16 +43,7 @@ class InertiaToastServiceProvider extends ServiceProvider
 
     protected function registerMiddleware(): void
     {
-        $this->app->make(Kernel::class)
-            ->pushMiddleware(ShareInertiaToastMiddleware::class);
+        $router = $this->app['router'];
+        $router->pushMiddlewareToGroup('web', ShareInertiaToastMiddleware::class);
     }
-
-
-    protected function shareLangWithInertia(): void
-    {
-        Inertia::share('flash', function () {
-            return InertiaToast::flash();
-        });
-    }
-
 }
