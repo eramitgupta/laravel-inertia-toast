@@ -46,7 +46,7 @@ class InertiaToastServiceProvider extends ServiceProvider
 
     protected function shareLangWithInertia(): void
     {
-        Inertia::share('lang', function () {
+        Inertia::share('flash', function () {
             return InertiaToast::flash();
         });
     }
