@@ -1,0 +1,18 @@
+# Dependencies
+/vendor/
+
+
+# IDE & Editors
+/.idea/
+/.vscode/
+/.fleet/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini

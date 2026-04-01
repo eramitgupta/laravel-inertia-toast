@@ -1,0 +1,45 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "erag/laravel-inertia-toast",
+    "description": "A Laravel package for displaying toast notifications with Inertia.js",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "inertia",
+        "inertiajs"
+    ],
+    "authors": [
+        {
+            "name": "Er Amit Gupta",
+            "email": "info.eramitgupta@gmail.com",
+            "homepage": "https://github.com/eramitgupta"
+        }
+    ],
+    "require": {
+        "php": ">=8.1.0",
+        "laravel/pint": "^1.13",
+        "illuminate/console": "^10.0|^11.0|^12.0|^13.0",
+        "illuminate/filesystem": "^10.0|^11.0|^12.0|^13.0",
+        "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+        "inertiajs/inertia-laravel": "^1.3|^2.0|^3.0"
+    },
+    "autoload": {
+        "files": [
+            "src/LangHelpers.php"
+        ],
+        "psr-4": {
+            "LaravelInertiaToast\\": "src/"
+        }
+    },
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelInertiaToast\\InertiaToastServiceProvider"
+            ],
+            "aliases": {
+                "InertiaToast": "LaravelInertiaToast\\Facades\\InertiaToast"
+            }
+        }
+    }
+}
