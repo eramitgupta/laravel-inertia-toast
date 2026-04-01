@@ -14,7 +14,12 @@ class ShareInertiaToastMiddleware
 
         if (! empty($translations)) {
             Inertia::share([
-                'lang' => $translations,
+                'flash' => [
+                    'type' => $request->session()->get('type'),
+                    'title' => $request->session()->get('title'),
+                    'message' => $request->session()->get('message'),
+                    'duration' => $request->session()->get('duration', 3000),
+                ],
             ]);
         }
 
