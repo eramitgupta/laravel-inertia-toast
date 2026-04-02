@@ -1,0 +1,45 @@
+{
+    "name": "@erag/inertia-toast",
+    "version": "1.1.4",
+    "type": "module",
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/inertia-toast.umd.cjs",
+    "module": "./dist/inertia-toast.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/inertia-toast.js",
+            "require": "./dist/inertia-toast.umd.cjs",
+            "types": "./dist/index.d.ts"
+        },
+        "./dist/style.css": "./dist/style.css"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vue-tsc && vite build",
+        "preview": "vite preview",
+        "lint": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\" && eslint . --fix"
+    },
+    "peerDependencies": {
+        "vue": "^3.0.0"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.2",
+        "@typescript-eslint/eslint-plugin": "^8.50.1",
+        "@typescript-eslint/parser": "^8.50.1",
+        "@vitejs/plugin-vue": "^5.0.0",
+        "eslint": "^9.39.2",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-vue": "^10.6.2",
+        "globals": "^16.5.0",
+        "prettier": "^3.7.4",
+        "typescript": "^5.0.0",
+        "typescript-eslint": "^8.50.1",
+        "vite": "^5.0.0",
+        "vite-plugin-dts": "^3.0.0",
+        "vue-eslint-parser": "^10.2.0",
+        "vue-tsc": "^2.0.0"
+    }
+}
