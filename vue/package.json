@@ -20,10 +20,13 @@
         "dev": "vite",
         "build": "vue-tsc && vite build",
         "preview": "vite preview",
+        "upgrade": "npx npm-check-updates -u",
         "lint": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\" && eslint . --fix"
     },
     "peerDependencies": {
-        "vue": "^3.0.0"
+        "vue": "^3.0.0",
+        "@inertiajs/core": "^2.0.0 || ^3.0.0",
+        "@inertiajs/vue3": "^2.0.0 || ^3.0.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.2",

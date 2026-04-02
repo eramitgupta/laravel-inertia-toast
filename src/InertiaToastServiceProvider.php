@@ -3,7 +3,6 @@
 namespace LaravelInertiaToast;
 
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
 use LaravelInertiaToast\Facades\InertiaToast;
 use LaravelInertiaToast\Middleware\ShareInertiaToastMiddleware;
