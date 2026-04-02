@@ -6,11 +6,21 @@ class InertiaToastLoader
 {
     public function flash(): array
     {
-        return [
-            'type' => session('type'),
-            'title' => session('title'),
-            'message' => session('message'),
-            'duration' => session('duration', 3000),
-        ];
+        if (session()->has('toast')) {
+            return session('toast');
+        }
+
+        if (session()->has('message')) {
+            $type = session('type', 'success');
+
+            return [
+                'type' => $type,
+                'title' => session('title') ?? ucfirst($type),
+                'message' => session('message'),
+                'duration' => session('duration', 3000),
+            ];
+        }
+
+        return [];
     }
 }
