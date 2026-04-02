@@ -5,7 +5,8 @@ if (! function_exists('toast')) {
         string $message,
         string $type = 'success',
         ?string $title = null,
-        int $duration = 3000
+        int $duration = 3000,
+        ?string $position = null
     ): void {
         session()->flash('toast', [
             'id' => uniqid(),
@@ -13,6 +14,7 @@ if (! function_exists('toast')) {
             'title' => $title,
             'message' => $message,
             'duration' => $duration,
+            'position' => $position,
         ]);
     }
 }

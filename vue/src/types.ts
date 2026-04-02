@@ -14,6 +14,7 @@ export interface ToastItem {
     title: string;
     message: string;
     duration: number;
+    position?: ToastPosition;
 }
 
 export interface PluginOptions {

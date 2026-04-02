@@ -3,13 +3,14 @@ import type { GlobalEvent, Page } from '@inertiajs/core';
 import { onBeforeUnmount, onMounted } from 'vue';
 import { useToast } from '../composables/useToast';
 import type { PageProps } from '../type/page';
-import type { ToastType } from '../types';
+import type { ToastPosition, ToastType } from '../types';
 
 type IncomingToast = {
     type?: unknown;
     title?: unknown;
     message?: unknown;
     duration?: unknown;
+    position?: unknown;
 };
 
 const toast = useToast();
@@ -33,8 +34,15 @@ const showToast = (maybeToast: unknown) => {
 
     const title = typeof t.title === 'string' ? t.title : t.type;
     const duration = typeof t.duration === 'number' ? t.duration : undefined;
+    const position =
+        typeof t.position === 'string' &&
+        ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'].includes(
+            t.position,
+        )
+            ? (t.position as ToastPosition)
+            : undefined;
 
-    toast[type](t.message, title, duration);
+    toast[type](t.message, title, duration, position);
 };
 
 const getInitialPageToast = () => {

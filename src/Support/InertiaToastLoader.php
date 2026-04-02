@@ -19,6 +19,7 @@ class InertiaToastLoader
                 'title' => session('title') ?? ucfirst($type),
                 'message' => session('message'),
                 'duration' => session('duration', 3000),
+                'position' => session('position'),
             ];
         }
 
