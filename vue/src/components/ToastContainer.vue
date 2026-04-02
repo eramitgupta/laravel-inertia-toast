@@ -12,7 +12,7 @@
         :title="toast.title"
         :message="toast.message"
         :duration="toast.duration"
-        @close="remove(toast.id)"
+        @close="remove"
       />
     </TransitionGroup>
   </div>

@@ -20,8 +20,9 @@
     </div>
 
     <button
+      type="button"
       class="erag-toast-close"
-      @click="closeToast"
+      @click.stop="closeToast"
     >
       <svg
         aria-hidden="true"
@@ -80,6 +81,11 @@ const startTimer = () => {
 };
 
 const closeToast = () => {
+    if (timer) {
+        clearTimeout(timer);
+        timer = null;
+    }
+
     emit('close', props.id);
 };
 
