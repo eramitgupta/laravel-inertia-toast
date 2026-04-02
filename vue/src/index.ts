@@ -1,10 +1,12 @@
 import type { App, Plugin } from 'vue';
 import { createVNode, render } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import ToastContainer from './components/ToastContainer.vue';
 import ConfirmationBox from './components/ConfirmationBox.vue';
 import { useToast } from './composables/useToast';
 import { useConfirmation } from './composables/useConfirmation';
 import type { PluginOptions } from './types';
+import { PageProps } from './type/page';
 
 export * from './types';
 export { useToast, useConfirmation };
@@ -38,6 +40,10 @@ const ToastPlugin: Plugin = {
             const { setPosition } = useToast();
             setPosition(options.position);
         }
+
+        const page = usePage<PageProps>();
+
+        console.log(page.props.toast);
 
         app.config.globalProperties.$toast = useToast();
     }

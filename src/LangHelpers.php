@@ -8,6 +8,7 @@ if (! function_exists('toast')) {
         int $duration = 3000
     ): void {
         session()->flash('toast', [
+            'id' => uniqid(),
             'type' => $type,
             'title' => $title,
             'message' => $message,

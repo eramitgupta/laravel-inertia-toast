@@ -14,6 +14,7 @@ class InertiaToastLoader
             $type = session('type', 'success');
 
             return [
+                'id' => uniqid(),
                 'type' => $type,
                 'title' => session('title') ?? ucfirst($type),
                 'message' => session('message'),
