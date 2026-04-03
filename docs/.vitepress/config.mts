@@ -1,6 +1,9 @@
 import { defineConfig } from 'vitepress';
 
+const githubRepo = 'laravel-inertia-toast';
+
 export default defineConfig({
+    base: `/${githubRepo}/`,
     title: 'Laravel Inertia Toast',
     description:
         'Toast notifications and confirmation dialogs for Laravel, Inertia.js, and Vue 3.',
@@ -40,7 +43,7 @@ export default defineConfig({
             provider: 'local',
         },
         footer: {
-            message: 'MIT License. © Er Amit Gupta',
+            message: 'MIT License. Copyright Er Amit Gupta',
         },
     },
 });
