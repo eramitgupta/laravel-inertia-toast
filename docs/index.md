@@ -53,6 +53,10 @@ It is built for apps that want:
     <h3>Confirmation Modal</h3>
     <p>Handle delete and danger flows with a promise-based confirm dialog that fits Inertia actions.</p>
   </div>
+  <div class="lit-card lit-card--react">
+    <h3>React Support</h3>
+    <p>Coming soon. The current release is built for Laravel + Inertia + Vue 3.</p>
+  </div>
 </div>
 
 ## Key features

@@ -18,6 +18,10 @@ This package has two parts:
     <h3>Low Setup Cost</h3>
     <p>No manual provider wiring in a normal Laravel app and only one plugin registration on the frontend.</p>
   </div>
+  <div class="lit-card lit-card--react">
+    <h3>React Support</h3>
+    <p>Coming soon. Install Vue 3 for now if you want to use the current frontend package.</p>
+  </div>
 </div>
 
 ## Setup level
