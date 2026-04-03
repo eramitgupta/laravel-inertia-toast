@@ -169,3 +169,11 @@ const destroyPost = async (id: number) => {
 - [Laravel Usage](/laravel): helper, facade, flash payloads, and redirect patterns
 - [Vue Usage](/vue): plugin setup, composables, confirmations, and component examples
 - [API Reference](/api-reference): supported types, positions, payload shape, and method signatures
+
+## Contributing
+
+Want to contribute to the package?
+
+- Read the full guide at [Contributing](/contributing)
+- Improve Laravel, Vue, or documentation parts of the repository
+- Submit a focused pull request with clear changes

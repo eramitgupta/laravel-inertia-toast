@@ -13,7 +13,6 @@ export default defineConfig({
             { text: 'Guide', link: '/installation' },
             { text: 'Laravel', link: '/laravel' },
             { text: 'Vue', link: '/vue' },
-            { text: 'API', link: '/api-reference' },
         ],
         sidebar: [
             {
@@ -32,7 +31,10 @@ export default defineConfig({
             },
             {
                 text: 'Reference',
-                items: [{ text: 'API Reference', link: '/api-reference' }],
+                items: [
+                    { text: 'API Reference', link: '/api-reference' },
+                    { text: 'Contributing', link: '/contributing' },
+                ],
             },
         ],
         outline: {
