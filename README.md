@@ -195,6 +195,16 @@ return redirect()
     ->with('position', 'top-right');
 ```
 
+```php
+ return redirect()->back()->with('toast', [
+        'type' => 'success',
+        'title' => 'Success',
+        'message' => 'Toast is working 🚀',
+        'duration' => 3000,
+        'position' => 'top-right',
+    ]);
+```
+
 ## Vue Usage
 
 ### Plugin setup
