@@ -4,21 +4,6 @@ Toast notifications for Laravel + Inertia.js, with a Vue 3 frontend plugin and a
 
 It gives you a simple backend API:
 
-```php
-toast('Post created successfully');
-```
-
-and handles the rest:
-
-- flashes toast data into the session
-- shares that data with Inertia automatically
-- renders the toast in your Vue app
-
-## Packages
-
-- Laravel package: `erag/laravel-inertia-toast`
-- Vue package: `@erag/inertia-toast`
-
 ## Features
 
 - Laravel `toast()` helper
@@ -31,27 +16,6 @@ and handles the rest:
 - `useConfirmation()` composable
 - six toast positions
 - support for standard Laravel flash session keys
-
-## Requirements
-
-- PHP `>= 8.1`
-- Laravel `10`, `11`, `12`, or `13`
-- `inertiajs/inertia-laravel` `^1.3 | ^2.0 | ^3.0`
-- Vue `3`
-- `@inertiajs/core` `^2.0 || ^3.0`
-- `@inertiajs/vue3` `^2.0 || ^3.0`
-
-## Table of Contents
-
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [How It Works](#how-it-works)
-- [Laravel Usage](#laravel-usage)
-- [Vue Usage](#vue-usage)
-- [API Reference](#api-reference)
-- [Toast Payload](#toast-payload)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
 
 ## Installation
 
@@ -68,18 +32,13 @@ Laravel package discovery registers the service provider automatically.
 Install the frontend package in your Inertia app:
 
 ```bash
-npm install @erag/inertia-toast
-```
-
-or:
-
-```bash
-yarn add @erag/inertia-toast
+npm install vendor/erag/laravel-inertia-toast/vue
 ```
 
 ### 3. Register the Vue plugin
 
 In `resources/js/app.js` or `resources/js/app.ts`:
+
 
 ```ts
 import { createApp, h } from 'vue';
