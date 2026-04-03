@@ -1,3 +1,12 @@
+---
+title: Installation Guide
+description: Install Laravel Inertia Toast for Laravel, Inertia.js, and Vue 3 with package setup, dependencies, and first toast example.
+head:
+  - - meta
+    - name: description
+      content: Install Laravel Inertia Toast for Laravel, Inertia.js, and Vue 3 with package setup, dependencies, and first toast example.
+---
+
 # Installation
 
 This package has two parts:

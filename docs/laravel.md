@@ -1,3 +1,12 @@
+---
+title: Laravel Usage
+description: Learn how to use the Laravel side of Laravel Inertia Toast with the toast helper, InertiaToast facade, flash payloads, and redirect flows.
+head:
+  - - meta
+    - name: description
+      content: Learn how to use the Laravel side of Laravel Inertia Toast with the toast helper, InertiaToast facade, flash payloads, and redirect flows.
+---
+
 # Laravel Usage
 
 The Laravel package is responsible for building the toast payload and exposing it to Inertia.

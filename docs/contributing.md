@@ -1,3 +1,12 @@
+---
+title: Contributing Guide
+description: Learn how to contribute to Laravel Inertia Toast, including docs workflow, pull request guidelines, local development, and package contribution notes.
+head:
+  - - meta
+    - name: description
+      content: Learn how to contribute to Laravel Inertia Toast, including docs workflow, pull request guidelines, local development, and package contribution notes.
+---
+
 # Contributing
 
 Thank you for considering contributing to Laravel Inertia Toast.

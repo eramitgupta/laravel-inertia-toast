@@ -1,3 +1,12 @@
+---
+title: Vue Usage
+description: Learn how to use the Vue 3 frontend plugin, toast composables, confirmation modal, and Inertia flash bridge in Laravel Inertia Toast.
+head:
+  - - meta
+    - name: description
+      content: Learn how to use the Vue 3 frontend plugin, toast composables, confirmation modal, and Inertia flash bridge in Laravel Inertia Toast.
+---
+
 # Vue Usage
 
 The Vue package handles rendering, client-side notifications, and promise-based confirmations.

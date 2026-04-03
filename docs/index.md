@@ -1,5 +1,11 @@
 ---
 layout: home
+title: Laravel Inertia Toast Docs
+description: Official documentation for Laravel Inertia Toast, including installation, Laravel usage, Vue usage, API reference, and contribution guides.
+head:
+  - - meta
+    - name: description
+      content: Official documentation for Laravel Inertia Toast, including installation, Laravel usage, Vue usage, API reference, and contribution guides.
 
 hero:
   name: "Laravel Inertia Toast"
