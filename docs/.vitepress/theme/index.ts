@@ -1,14 +1,23 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
+import { h, onBeforeUnmount, onMounted } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+import HeroTechOrbit from './components/HeroTechOrbit.vue'
 import './style.css'
 
 export default {
   extends: DefaultTheme,
   Layout: () => {
+    onMounted(() => {
+      document.getElementById('VPContent')?.classList.remove('is-home')
+    })
+
+    onBeforeUnmount(() => {
+      document.getElementById('VPContent')?.classList.remove('is-home')
+    })
+
     return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
+      'home-hero-image': () => h(HeroTechOrbit)
     })
   },
   enhanceApp({ app, router, siteData }) {
