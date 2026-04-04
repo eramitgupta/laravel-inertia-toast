@@ -36,9 +36,14 @@ const showToast = (maybeToast: unknown) => {
     const duration = typeof t.duration === 'number' ? t.duration : undefined;
     const position =
         typeof t.position === 'string' &&
-        ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'].includes(
-            t.position,
-        )
+        [
+            'top-left',
+            'top-center',
+            'top-right',
+            'bottom-left',
+            'bottom-center',
+            'bottom-right'
+        ].includes(t.position)
             ? (t.position as ToastPosition)
             : undefined;
 

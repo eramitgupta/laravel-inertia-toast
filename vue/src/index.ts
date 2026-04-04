@@ -1,10 +1,10 @@
 import type { App, Plugin } from 'vue';
 import { createVNode, render } from 'vue';
-import ToastContainer from './components/ToastContainer.vue';
 import ConfirmationBox from './components/ConfirmationBox.vue';
 import FlashToastBridge from './components/FlashToastBridge.vue';
-import { useToast } from './composables/useToast';
+import ToastContainer from './components/ToastContainer.vue';
 import { useConfirmation } from './composables/useConfirmation';
+import { useToast } from './composables/useToast';
 import type { PluginOptions } from './types';
 
 export * from './types';

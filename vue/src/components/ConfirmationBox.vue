@@ -1,50 +1,44 @@
 <template>
-  <Transition name="erag-modal-fade">
-    <div
-      v-if="state.isOpen"
-      class="erag-modal-backdrop"
-    >
-      <div class="erag-modal-container">
-        <div class="erag-modal-body">
-          <!-- ICON -->
-          <div
-            v-if="resolvedIcon"
-            class="erag-modal-icon-wrapper"
-            :class="`erag-${currentType?.iconClass}`"
-            v-html="resolvedIcon"
-          />
+    <Transition name="erag-modal-fade">
+        <div v-if="state.isOpen" class="erag-modal-backdrop">
+            <div class="erag-modal-container">
+                <div class="erag-modal-body">
+                    <!-- ICON -->
+                    <div
+                        v-if="resolvedIcon"
+                        class="erag-modal-icon-wrapper"
+                        :class="`erag-${currentType?.iconClass}`"
+                        v-html="resolvedIcon"
+                    />
 
-          <!-- TEXT -->
-          <div class="erag-modal-text">
-            <h3 class="erag-modal-title">
-              {{ state.options.title }}
-            </h3>
-            <p class="erag-modal-message">
-              {{ state.options.message }}
-            </p>
-          </div>
+                    <!-- TEXT -->
+                    <div class="erag-modal-text">
+                        <h3 class="erag-modal-title">
+                            {{ state.options.title }}
+                        </h3>
+                        <p class="erag-modal-message">
+                            {{ state.options.message }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <div class="erag-modal-footer">
+                    <button class="erag-btn erag-btn-cancel" @click="handleAction(false)">
+                        {{ state.options.cancelText }}
+                    </button>
+
+                    <button
+                        class="erag-btn"
+                        :class="`erag-btn-${currentType.confirmClass}`"
+                        @click="handleAction(true)"
+                    >
+                        {{ state.options.confirmText }}
+                    </button>
+                </div>
+            </div>
         </div>
-
-        <!-- FOOTER -->
-        <div class="erag-modal-footer">
-          <button
-            class="erag-btn erag-btn-cancel"
-            @click="handleAction(false)"
-          >
-            {{ state.options.cancelText }}
-          </button>
-
-          <button
-            class="erag-btn"
-            :class="`erag-btn-${currentType.confirmClass}`"
-            @click="handleAction(true)"
-          >
-            {{ state.options.confirmText }}
-          </button>
-        </div>
-      </div>
-    </div>
-  </Transition>
+    </Transition>
 </template>
 
 <script setup lang="ts">
