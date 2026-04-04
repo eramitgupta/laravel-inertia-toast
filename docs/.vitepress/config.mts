@@ -90,6 +90,7 @@ export default defineConfig({
     ],
     themeConfig: {
         nav: [
+            { text: 'Demo', link: '/demo' },
             { text: 'Guide', link: '/installation' },
             { text: 'Laravel', link: '/laravel' },
             { text: 'Vue', link: '/vue' },
@@ -99,6 +100,7 @@ export default defineConfig({
                 text: 'Getting Started',
                 items: [
                     { text: 'Overview', link: '/' },
+                    { text: 'Demo', link: '/demo' },
                     { text: 'Installation', link: '/installation' },
                 ],
             },
