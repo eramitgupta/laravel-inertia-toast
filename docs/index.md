@@ -10,7 +10,7 @@ head:
 hero:
   name: "Laravel Inertia Toast"
   text: "Notifications and confirmation dialogs for Laravel + Inertia + Vue 3"
-  tagline: "A low-config package that flashes toast data from Laravel and renders it automatically in your Inertia frontend."
+  tagline: "Simple toast messages and confirm dialogs for your Laravel Inertia app."
   actions:
     - theme: brand
       text: Get Started
@@ -21,13 +21,13 @@ hero:
 
 features:
   - title: Laravel-first API
-    details: Use the global `toast()` helper or the `InertiaToast` facade and let the package handle session flashing and Inertia sharing.
+    details: Use `toast()` or `InertiaToast` and let the package pass the message to Inertia for you.
   - title: Low-config setup
-    details: Laravel auto-discovers the service provider, pushes middleware to the `web` group, and the Vue plugin only needs one registration line in your Inertia bootstrap.
+    details: Install it, add the Vue plugin once, and most of the setup is handled automatically.
   - title: Vue 3 frontend plugin
-    details: Register the plugin once to mount the toast container, confirmation modal, and Inertia flash bridge automatically.
+    details: One plugin setup gives you toasts, confirm dialogs, and Inertia flash handling.
   - title: Practical defaults
-    details: Supports six positions, common toast types, standard Laravel flash keys, and promise-based confirmations.
+    details: It comes with useful defaults for toast types, positions, flash keys, and confirms.
 ---
 
 ## Why this package

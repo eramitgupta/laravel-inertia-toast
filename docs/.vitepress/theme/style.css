@@ -93,6 +93,25 @@
     linear-gradient(180deg, rgba(10, 12, 16, 1), rgba(14, 18, 23, 1));
 }
 
+.VPHomeHero .text {
+    font-size: 30px;
+    line-height: 38px;
+}
+
+@media (min-width: 640px) {
+  .VPHomeHero .text {
+      font-size: 30px;
+      line-height: 38px;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHomeHero .text {
+      font-size: 30px;
+      line-height: 38px;
+  }
+}
+
 .VPFeature {
   border: 1px solid rgba(242, 78, 30, 0.12);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 245, 0.96));
