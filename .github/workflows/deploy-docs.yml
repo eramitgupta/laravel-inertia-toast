@@ -28,10 +28,16 @@ jobs:
           node-version: 24
           cache: npm
 
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build VitePress
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: npm run build
 
 

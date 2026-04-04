@@ -16,21 +16,7 @@ keywords:
   <a class="demo-link-chip" href="./modal-usage">Modal Usage</a>
 </div>
 
-<div class="demo-video-card">
-  <video
-    class="demo-video"
-    autoplay
-    controls
-    loop
-    muted
-    preload="metadata"
-    playsinline
-    poster="/demo/toast-demo-poster.jpg"
-  >
-    <source src="/demo/toast-demo.webm" type="video/webm" />
-    Your browser does not support the demo video.
-  </video>
-</div>
+<DemoVideoPlayer />
 
 ## What you can see here
 
