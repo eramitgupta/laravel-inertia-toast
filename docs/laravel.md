@@ -118,6 +118,15 @@ Supported keys:
 ### Example
 
 ```php
+return back()->with([
+    'type' => 'success',
+    'title' => 'Success',
+    'message' => 'Updated successfully',
+    'duration' => 3000,
+]);
+```
+
+```php
 return redirect()
     ->route('dashboard')
     ->with('message', 'Welcome back')
