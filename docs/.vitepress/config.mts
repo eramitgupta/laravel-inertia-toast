@@ -6,7 +6,7 @@ export default defineConfig({
     title: 'Laravel Inertia Toast Docs',
     description:
         'Laravel Inertia Toast documentation for toast notifications and confirmation dialogs with Laravel, Inertia.js, and Vue 3.',
-    cleanUrls: false,
+    cleanUrls: true,
     lastUpdated: true,
     head: [
         [
@@ -14,13 +14,6 @@ export default defineConfig({
             {
                 rel: 'icon',
                 href: 'https://avatars.githubusercontent.com/u/72160684?v=4&size=64',
-            },
-        ],
-        [
-            'link',
-            {
-                rel: 'canonical',
-                href: 'https://eramitgupta.github.io/laravel-inertia-toast/',
             },
         ],
         ['meta', { name: 'theme-color', content: '#f24e1e' }],
