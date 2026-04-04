@@ -15,7 +15,13 @@ export default defineConfig({
                 href: 'https://avatars.githubusercontent.com/u/72160684?v=4&size=64',
             },
         ],
-        ['link', { rel: 'canonical', href: '' }],
+        [
+            'link',
+            {
+                rel: 'canonical',
+                href: 'https://eramitgupta.github.io/laravel-inertia-toast/',
+            },
+        ],
         ['meta', { name: 'theme-color', content: '#f24e1e' }],
         ['meta', { name: 'author', content: 'Er Amit Gupta' }],
         [
@@ -43,7 +49,13 @@ export default defineConfig({
                     'Documentation for Laravel Inertia Toast, a package for toast notifications and confirmation dialogs in Laravel, Inertia.js, and Vue 3.',
             },
         ],
-        ['meta', { property: 'og:url', content: '' }],
+        [
+            'meta',
+            {
+                property: 'og:url',
+                content: 'https://eramitgupta.github.io/laravel-inertia-toast/',
+            },
+        ],
         [
             'meta',
             {
