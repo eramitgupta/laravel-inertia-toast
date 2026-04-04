@@ -98,6 +98,65 @@
     line-height: 38px;
 }
 
+@media (max-width: 639px) {
+  .VPHomeHero {
+    padding-top: calc(var(--vp-nav-height) + 28px) !important;
+  }
+
+  .VPHomeHero .image {
+    margin: 0 0 20px !important;
+  }
+
+  .VPHomeHero .image-container {
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+  }
+
+  .VPHomeHero .image-bg {
+    width: 180px !important;
+    height: 180px !important;
+  }
+
+  .VPHomeHero .main {
+    width: 100%;
+  }
+
+  .VPHomeHero .heading {
+    align-items: center;
+    text-align: center;
+  }
+
+  .VPHomeHero .name,
+  .VPHomeHero .text {
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+  }
+
+  .VPHomeHero .name {
+    font-size: 32px;
+    line-height: 1.08;
+  }
+
+  .VPHomeHero .text {
+    font-size: 26px;
+    line-height: 1.12;
+  }
+
+  .VPHomeHero .tagline {
+    max-width: 100%;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .VPHomeHero .actions {
+    justify-content: center;
+    padding-top: 22px;
+  }
+}
+
 @media (min-width: 640px) {
   .VPHomeHero .text {
       font-size: 30px;

@@ -265,8 +265,9 @@
 
 @media (max-width: 639px) {
   .hero-orbit {
+    width: 100%;
     min-height: auto;
-    padding-top: 12px;
+    padding-top: 0;
     display: grid;
     gap: 12px;
   }
@@ -282,10 +283,64 @@
   }
 
   .hero-orbit__toast-card {
+    min-width: 0;
+    width: 100%;
     justify-content: center;
+    padding: 18px 16px;
   }
 
   .hero-orbit__item {
+    width: fit-content;
+    max-width: 100%;
+    justify-self: center;
+    padding: 9px 13px;
+    font-size: 0.88rem;
+    animation: none;
+  }
+
+  .hero-orbit__logo {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+
+  .hero-orbit__logo svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-orbit {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .hero-orbit__core {
+    grid-column: 1 / -1;
+  }
+
+  .hero-orbit__toast-card {
+    border-radius: 20px;
+  }
+
+  .hero-orbit__toast-copy strong {
+    font-size: 0.95rem;
+  }
+
+  .hero-orbit__toast-copy span {
+    font-size: 0.85rem;
+  }
+
+  .hero-orbit__item {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+  }
+
+  .hero-orbit__item--typescript {
+    grid-column: 1 / -1;
+    width: max-content;
     justify-self: center;
   }
 }
