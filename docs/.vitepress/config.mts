@@ -94,6 +94,7 @@ export default defineConfig({
                 items: [
                     { text: 'Laravel Usage', link: '/laravel' },
                     { text: 'Vue Usage', link: '/vue' },
+                    { text: 'Styling', link: '/styling' },
                 ],
             },
             {
