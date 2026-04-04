@@ -14,7 +14,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /installation
+      link: /demo
     - theme: alt
       text: Vue Usage
       link: /vue

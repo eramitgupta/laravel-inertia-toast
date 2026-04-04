@@ -9,18 +9,15 @@ keywords:
 
 # Demo
 
-
-<div class="demo-link-row">
-  <a class="demo-link-chip" href="./installation">Get Started</a>
-  <a class="demo-link-chip" href="./vue">Vue Usage</a>
-  <a class="demo-link-chip" href="./modal-usage">Modal Usage</a>
-</div>
-
 <DemoVideoPlayer />
 
 ## What you can see here
 
-- toast notifications in action
-- clean success, error, warning, and info states
-- confirmation modal flow
-- real package behavior inside the UI
+- **Server-side toasts** from Laravel flash messages
+- **Client-side toasts** triggered directly in Vue
+- **Different toast types** like success, error, warning, and info
+- **Multiple positions** to see how placement looks
+- **Confirmation modal flow** before delete actions
+- **Real UI behavior** so you can quickly understand how it feels in an app
+
+[See installation steps](/installation)
