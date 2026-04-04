@@ -6,7 +6,8 @@ export default defineConfig({
     title: 'Laravel Inertia Toast Docs',
     description:
         'Laravel Inertia Toast documentation for toast notifications and confirmation dialogs with Laravel, Inertia.js, and Vue 3.',
-    cleanUrls: true,
+    cleanUrls: false,
+    lastUpdated: true,
     head: [
         [
             'link',
