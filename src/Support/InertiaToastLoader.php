@@ -16,7 +16,7 @@ class InertiaToastLoader
             return [
                 'id' => uniqid(),
                 'type' => $type,
-                'title' => session('title') ?? ucfirst($type),
+                'title' => session('title'),
                 'message' => session('message'),
                 'duration' => session('duration', 3000),
                 'position' => session('position'),
