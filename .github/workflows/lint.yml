@@ -52,7 +52,7 @@ jobs:
 
       - name: Install Vue package dependencies
         working-directory: vue
-        run: npm ci --ignore-scripts
+        run: npm install --ignore-scripts
 
       - name: Check Vue package formatting
         working-directory: vue
