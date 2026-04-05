@@ -11,7 +11,7 @@ export default defineConfig({
             entry: resolve(__dirname, 'src/index.ts'),
             formats: ['es', 'cjs'],
             fileName: (format) => (format === 'es' ? 'index.js' : 'index.cjs'),
-            cssFileName: 'style',
+            cssFileName: 'style'
         },
         outDir: 'dist',
         emptyOutDir: true,
@@ -21,11 +21,11 @@ export default defineConfig({
             output: {
                 exports: 'named',
                 globals: {
-                    vue: 'Vue',
-                },
-            },
+                    vue: 'Vue'
+                }
+            }
         },
         target: 'es2018',
-        sourcemap: true,
-    },
+        sourcemap: true
+    }
 });
