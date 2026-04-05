@@ -1,0 +1,289 @@
+.erag-toast-container {
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+}
+
+.erag-toast-container.erag-top-left {
+    top: 20px;
+    left: 20px;
+}
+
+.erag-toast-container.erag-top-center {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.erag-toast-container.erag-top-right {
+    top: 20px;
+    right: 20px;
+}
+
+.erag-toast-container.erag-bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.erag-toast-container.erag-bottom-center {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.erag-toast-container.erag-bottom-right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.erag-toast {
+    --toast-bg: #fff;
+    --toast-color: #333;
+    width: 320px;
+    background: var(--toast-bg);
+    color: white;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 12px;
+    margin-bottom: 10px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition:
+        transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+        opacity 0.3s ease;
+}
+
+.erag-toast.erag-show {
+    transform: translateY(0) !important;
+    opacity: 1;
+}
+
+.erag-toast::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--toast-color);
+    opacity: 0.15;
+    transform: translateX(-100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.erag-toast.erag-show::before {
+    animation: eragProgressLayer var(--duration) linear forwards;
+}
+
+.erag-toast-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    color: white;
+}
+
+.erag-toast-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.erag-toast-content {
+    padding: 9px 0;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+
+.erag-toast-content strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 2px;
+    color: inherit;
+    line-height: 1.2;
+}
+
+.erag-toast-content span {
+    font-size: 16px;
+    opacity: 0.9;
+    line-height: 1.2;
+}
+
+.erag-toast-content.erag-single-line {
+    padding: 17px 0;
+}
+
+.erag-toast-content.erag-single-line strong {
+    margin-bottom: 0;
+}
+
+.erag-toast-close {
+    background: transparent;
+    border: none;
+    color: white;
+    opacity: 0.7;
+    cursor: pointer;
+    padding: 6px;
+    margin-left: 8px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.erag-toast-close:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.erag-toast-close svg {
+    width: 12px;
+    height: 12px;
+}
+
+.erag-toast.erag-success {
+    --toast-bg: #27ae60;
+}
+
+.erag-toast.erag-error {
+    --toast-bg: #c0392b;
+}
+
+.erag-toast.erag-warning {
+    --toast-bg: #d35400;
+}
+
+.erag-toast.erag-info {
+    --toast-bg: #2980b9;
+}
+
+.erag-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.erag-modal-container {
+    background: #fff;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.erag-modal-body {
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+}
+
+.erag-modal-icon-wrapper {
+    width: 45px;
+    height: 45px;
+    color: rgb(220, 38, 38);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgb(254, 226, 226);
+}
+
+.erag-info {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.erag-success {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.erag-warning {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.erag-danger {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.erag-modal-title {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.erag-modal-message {
+    margin: 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.erag-modal-footer {
+    padding: 12px 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    background: #f9fafb;
+}
+
+.erag-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+}
+
+.erag-btn-cancel {
+    background: #fff;
+    border: 1px solid #d1d5db;
+}
+
+.erag-btn-info {
+    background: #0284c7;
+    color: #fff;
+}
+
+.erag-btn-success {
+    background: #16a34a;
+    color: #fff;
+}
+
+.erag-btn-warning {
+    background: #d97706;
+    color: #fff;
+}
+
+.erag-btn-danger {
+    background: #dc2626;
+    color: #fff;
+}
+
+@keyframes eragProgressLayer {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
