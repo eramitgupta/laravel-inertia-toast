@@ -3,7 +3,7 @@
         "target": "ESNext",
         "useDefineForClassFields": true,
         "module": "ESNext",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "strict": true,
         "jsx": "preserve",
         "resolveJsonModule": true,
@@ -14,7 +14,9 @@
         "declarationMap": true,
         "declarationDir": "./dist",
         "rootDir": "./src",
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "noEmit": false,
+        "emitDeclarationOnly": true
     },
     "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
     "vueCompilerOptions": {
