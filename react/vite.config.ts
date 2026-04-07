@@ -2,7 +2,13 @@ import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-const external = ['react', 'react-dom', 'react/jsx-runtime', '@inertiajs/core', '@inertiajs/react'];
+const external = [
+    'react',
+    'react-dom',
+    'react/jsx-runtime',
+    '@inertiajs/core',
+    '@inertiajs/react',
+];
 
 export default defineConfig({
     plugins: [react()],

@@ -1,7 +1,8 @@
 import { useConfirmation } from '../hooks/useConfirmation';
 
 export default function ConfirmationBox() {
-    const { state, handleAction, currentType, resolvedIcon } = useConfirmation();
+    const { state, handleAction, currentType, resolvedIcon } =
+        useConfirmation();
 
     if (!state.isOpen) {
         return null;
@@ -19,17 +20,27 @@ export default function ConfirmationBox() {
                     ) : null}
 
                     <div className="erag-modal-text">
-                        <h3 className="erag-modal-title">{state.options.title}</h3>
-                        <p className="erag-modal-message">{state.options.message}</p>
+                        <h3 className="erag-modal-title">
+                            {state.options.title}
+                        </h3>
+                        <p className="erag-modal-message">
+                            {state.options.message}
+                        </p>
                     </div>
                 </div>
 
                 <div className="erag-modal-footer">
-                    <button className="erag-btn erag-btn-cancel" onClick={() => handleAction(false)}>
+                    <button
+                        className="erag-btn erag-btn-cancel"
+                        onClick={() => handleAction(false)}
+                    >
                         {state.options.cancelText}
                     </button>
 
-                    <button className={`erag-btn erag-btn-${currentType.confirmClass}`} onClick={() => handleAction(true)}>
+                    <button
+                        className={`erag-btn erag-btn-${currentType.confirmClass}`}
+                        onClick={() => handleAction(true)}
+                    >
                         {state.options.confirmText}
                     </button>
                 </div>

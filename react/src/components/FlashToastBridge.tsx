@@ -38,8 +38,14 @@ export default function FlashToastBridge() {
                 return;
             }
 
-            const title = typeof incoming.title === 'string' ? incoming.title : incoming.type;
-            const duration = typeof incoming.duration === 'number' ? incoming.duration : undefined;
+            const title =
+                typeof incoming.title === 'string'
+                    ? incoming.title
+                    : incoming.type;
+            const duration =
+                typeof incoming.duration === 'number'
+                    ? incoming.duration
+                    : undefined;
             const position =
                 typeof incoming.position === 'string' &&
                 [
@@ -57,7 +63,8 @@ export default function FlashToastBridge() {
         };
 
         const getInitialPageToast = () => {
-            const inertiaRoot = document.querySelector<HTMLElement>('[data-page]');
+            const inertiaRoot =
+                document.querySelector<HTMLElement>('[data-page]');
 
             if (!inertiaRoot) {
                 return null;

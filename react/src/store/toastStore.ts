@@ -47,7 +47,7 @@ export const showToast = (
     title: string,
     message: string,
     duration = 4500,
-    position?: ToastPosition
+    position?: ToastPosition,
 ) => {
     const id = count++;
 

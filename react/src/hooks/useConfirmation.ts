@@ -12,7 +12,7 @@ export const useConfirmation = () => {
     const state = useSyncExternalStore(
         subscribeConfirmationStore,
         getConfirmationSnapshot,
-        getConfirmationSnapshot
+        getConfirmationSnapshot,
     );
 
     return {

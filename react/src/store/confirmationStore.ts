@@ -79,7 +79,10 @@ export const handleConfirmationAction = (value: boolean) => {
     resolvePromise = null;
 };
 
-export const getCurrentType = () => typeConfig[state.options.type || ('info' as ModalType)];
+export const getCurrentType = () =>
+    typeConfig[state.options.type || ('info' as ModalType)];
 
 export const getResolvedIcon = () =>
-    state.options.icon ? state.options.icon : defaultIcons[state.options.type || ('info' as ModalType)];
+    state.options.icon
+        ? state.options.icon
+        : defaultIcons[state.options.type || ('info' as ModalType)];
