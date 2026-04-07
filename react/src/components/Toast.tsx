@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { icons } from '../icons';
 import type { ToastType } from '../types';
 
@@ -21,7 +21,7 @@ export default function Toast({
 }: ToastProps) {
     const [isMounted, setIsMounted] = useState(false);
 
-    const currentIcon = useMemo(() => icons[type] || icons.info, [type]);
+    const currentIcon = icons[type] || icons.info;
     const isSingleLine = !title?.trim() || !message?.trim();
 
     useEffect(() => {

@@ -31,6 +31,7 @@ export default function ConfirmationBox() {
 
                 <div className="erag-modal-footer">
                     <button
+                        type="button"
                         className="erag-btn erag-btn-cancel"
                         onClick={() => handleAction(false)}
                     >
@@ -38,6 +39,7 @@ export default function ConfirmationBox() {
                     </button>
 
                     <button
+                        type="button"
                         className={`erag-btn erag-btn-${currentType.confirmClass}`}
                         onClick={() => handleAction(true)}
                     >

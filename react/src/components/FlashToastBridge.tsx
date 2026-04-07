@@ -1,6 +1,6 @@
 import type { GlobalEvent, Page } from '@inertiajs/core';
 import { useEffect } from 'react';
-import { useToast } from '../hooks/useToast';
+import { showToast } from '../store/toastStore';
 import type { PageProps } from '../type/page';
 import type { ToastPosition, ToastType } from '../types';
 
@@ -12,11 +12,25 @@ type IncomingToast = {
     position?: unknown;
 };
 
-export default function FlashToastBridge() {
-    const toast = useToast();
+const validToastTypes = new Set<ToastType>([
+    'success',
+    'error',
+    'warning',
+    'info',
+]);
 
+const validToastPositions = new Set<ToastPosition>([
+    'top-left',
+    'top-center',
+    'top-right',
+    'bottom-left',
+    'bottom-center',
+    'bottom-right',
+]);
+
+export default function FlashToastBridge() {
     useEffect(() => {
-        const showToast = (maybeToast: unknown) => {
+        const showIncomingToast = (maybeToast: unknown) => {
             if (!maybeToast || typeof maybeToast !== 'object') {
                 return;
             }
@@ -34,7 +48,7 @@ export default function FlashToastBridge() {
 
             const type = incoming.type as ToastType;
 
-            if (!['success', 'error', 'warning', 'info'].includes(type)) {
+            if (!validToastTypes.has(type)) {
                 return;
             }
 
@@ -48,18 +62,11 @@ export default function FlashToastBridge() {
                     : undefined;
             const position =
                 typeof incoming.position === 'string' &&
-                [
-                    'top-left',
-                    'top-center',
-                    'top-right',
-                    'bottom-left',
-                    'bottom-center',
-                    'bottom-right',
-                ].includes(incoming.position)
+                validToastPositions.has(incoming.position as ToastPosition)
                     ? (incoming.position as ToastPosition)
                     : undefined;
 
-            toast[type](incoming.message, title, duration, position);
+            showToast(type, title, incoming.message, duration, position);
         };
 
         const getInitialPageToast = () => {
@@ -86,16 +93,16 @@ export default function FlashToastBridge() {
 
         const onSuccess = (event: Event) => {
             const inertiaEvent = event as GlobalEvent<'success'>;
-            showToast(inertiaEvent.detail.page.props?.toast);
+            showIncomingToast(inertiaEvent.detail.page.props?.toast);
         };
 
-        showToast(getInitialPageToast());
+        showIncomingToast(getInitialPageToast());
         document.addEventListener('inertia:success', onSuccess);
 
         return () => {
             document.removeEventListener('inertia:success', onSuccess);
         };
-    }, [toast]);
+    }, []);
 
     return null;
 }
