@@ -33,7 +33,9 @@ export default function ConfirmationBox() {
                     <button
                         type="button"
                         className="erag-btn erag-btn-cancel"
-                        onClick={() => handleAction(false)}
+                        onClick={() => {
+                            handleAction(false);
+                        }}
                     >
                         {state.options.cancelText}
                     </button>
@@ -41,7 +43,9 @@ export default function ConfirmationBox() {
                     <button
                         type="button"
                         className={`erag-btn erag-btn-${currentType.confirmClass}`}
-                        onClick={() => handleAction(true)}
+                        onClick={() => {
+                            handleAction(true);
+                        }}
                     >
                         {state.options.confirmText}
                     </button>

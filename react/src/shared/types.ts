@@ -1,3 +1,5 @@
+export type ToastId = number | string;
+
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 
 export type ToastPosition =
@@ -9,7 +11,7 @@ export type ToastPosition =
     | 'bottom-right';
 
 export interface ToastItem {
-    id: number;
+    id: ToastId;
     type: ToastType;
     title: string;
     message: string;

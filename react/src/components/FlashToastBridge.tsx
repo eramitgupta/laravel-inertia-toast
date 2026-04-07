@@ -1,10 +1,9 @@
-import type { GlobalEvent, Page } from '@inertiajs/core';
-import { useEffect } from 'react';
-import { showToast } from '../store/toastStore';
-import type { PageProps } from '../type/page';
-import type { ToastPosition, ToastType } from '../types';
+import { useEffect, useRef } from 'react';
+import { useToast } from '../hooks/useToast';
+import type { ToastItem, ToastPosition, ToastType } from '../shared/types';
 
 type IncomingToast = {
+    id?: unknown;
     type?: unknown;
     title?: unknown;
     message?: unknown;
@@ -12,97 +11,110 @@ type IncomingToast = {
     position?: unknown;
 };
 
-const validToastTypes = new Set<ToastType>([
-    'success',
-    'error',
-    'warning',
-    'info',
-]);
-
-const validToastPositions = new Set<ToastPosition>([
+const positions: ToastPosition[] = [
     'top-left',
     'top-center',
     'top-right',
     'bottom-left',
     'bottom-center',
     'bottom-right',
-]);
+];
+
+const types: ToastType[] = ['success', 'error', 'warning', 'info'];
+
+const normalizeToast = (value: unknown): ToastItem | null => {
+    if (!value || typeof value !== 'object') {
+        return null;
+    }
+
+    const toast = value as IncomingToast;
+
+    if (
+        !types.includes(toast.type as ToastType) ||
+        typeof toast.message !== 'string'
+    ) {
+        return null;
+    }
+
+    return {
+        id:
+            typeof toast.id === 'number' || typeof toast.id === 'string'
+                ? toast.id
+                : `${toast.type}-${toast.message}`,
+        type: toast.type as ToastType,
+        title:
+            typeof toast.title === 'string'
+                ? toast.title
+                : (toast.type as ToastType),
+        message: toast.message,
+        duration: typeof toast.duration === 'number' ? toast.duration : 3000,
+        position: positions.includes(toast.position as ToastPosition)
+            ? (toast.position as ToastPosition)
+            : undefined,
+    };
+};
 
 export default function FlashToastBridge() {
+    const toast = useToast();
+    const { show } = toast;
+    const lastToastId = useRef<ToastItem['id'] | null>(null);
+
     useEffect(() => {
-        const showIncomingToast = (maybeToast: unknown) => {
-            if (!maybeToast || typeof maybeToast !== 'object') {
+        const showIncomingToast = (value: unknown) => {
+            const nextToast = normalizeToast(value);
+
+            if (!nextToast || nextToast.id === lastToastId.current) {
                 return;
             }
 
-            const incoming = maybeToast as IncomingToast;
-
-            if (
-                !incoming.type ||
-                !incoming.message ||
-                typeof incoming.type !== 'string' ||
-                typeof incoming.message !== 'string'
-            ) {
-                return;
-            }
-
-            const type = incoming.type as ToastType;
-
-            if (!validToastTypes.has(type)) {
-                return;
-            }
-
-            const title =
-                typeof incoming.title === 'string'
-                    ? incoming.title
-                    : incoming.type;
-            const duration =
-                typeof incoming.duration === 'number'
-                    ? incoming.duration
-                    : undefined;
-            const position =
-                typeof incoming.position === 'string' &&
-                validToastPositions.has(incoming.position as ToastPosition)
-                    ? (incoming.position as ToastPosition)
-                    : undefined;
-
-            showToast(type, title, incoming.message, duration, position);
+            lastToastId.current = nextToast.id;
+            show(
+                nextToast.type,
+                nextToast.title,
+                nextToast.message,
+                nextToast.duration,
+                nextToast.position,
+            );
         };
 
-        const getInitialPageToast = () => {
+        const getInitialPageToast = (): unknown => {
             const inertiaRoot =
                 document.querySelector<HTMLElement>('[data-page]');
 
-            if (!inertiaRoot) {
-                return null;
-            }
-
-            const rawPage = inertiaRoot.dataset.page;
-
-            if (!rawPage) {
+            if (!inertiaRoot?.dataset.page) {
                 return null;
             }
 
             try {
-                const parsedPage = JSON.parse(rawPage) as Page<PageProps>;
-                return parsedPage.props?.toast ?? null;
+                return (
+                    JSON.parse(inertiaRoot.dataset.page) as {
+                        props?: { toast?: unknown };
+                    }
+                ).props?.toast;
             } catch {
                 return null;
             }
         };
 
-        const onSuccess = (event: Event) => {
-            const inertiaEvent = event as GlobalEvent<'success'>;
-            showIncomingToast(inertiaEvent.detail.page.props?.toast);
+        const handleSuccess = (event: Event) => {
+            const detail = event as CustomEvent<{
+                page?: {
+                    props?: {
+                        toast?: unknown;
+                    };
+                };
+            }>;
+
+            showIncomingToast(detail.detail.page?.props?.toast);
         };
 
         showIncomingToast(getInitialPageToast());
-        document.addEventListener('inertia:success', onSuccess);
+        document.addEventListener('inertia:success', handleSuccess);
 
         return () => {
-            document.removeEventListener('inertia:success', onSuccess);
+            document.removeEventListener('inertia:success', handleSuccess);
         };
-    }, []);
+    }, [show]);
 
     return null;
 }

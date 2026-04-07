@@ -2,7 +2,9 @@
     "name": "@erag/inertia-toast-react",
     "version": "1.0.0",
     "type": "module",
-    "sideEffects": false,
+    "sideEffects": [
+        "./dist/style.css"
+    ],
     "files": [
         "dist"
     ],
@@ -21,25 +23,25 @@
     "scripts": {
         "build": "rm -rf dist && vite build && tsc -p tsconfig.json",
         "prepare": "npm run build",
-        "lint": "prettier --write \"./**/*.{tsx,ts,js,json,md,css}\"",
-        "lint:check": "prettier --check \"./**/*.{tsx,ts,js,json,md,css}\"",
+        "upgrade": "npx npm-check-updates -u",
+        "lint": "prettier --write \"./**/*.{css,ts,tsx,js,json,md}\"",
+        "lint:check": "prettier --check \"./**/*.{css,ts,tsx,js,json,md}\"",
         "type-check": "tsc --noEmit"
     },
     "publishConfig": {
         "access": "public"
     },
     "peerDependencies": {
+        "@inertiajs/react": "^2.0.0 || ^3.0.0",
         "react": "^18.0.0 || ^19.0.0",
-        "react-dom": "^18.0.0 || ^19.0.0",
-        "@inertiajs/core": "^2.0.0 || ^3.0.0",
-        "@inertiajs/react": "^2.0.0 || ^3.0.0"
+        "react-dom": "^18.0.0 || ^19.0.0"
     },
     "devDependencies": {
         "@types/react": "^19.2.2",
         "@types/react-dom": "^19.2.2",
-        "@vitejs/plugin-react": "^5.0.4",
+        "@vitejs/plugin-react": "^5.1.0",
         "prettier": "^3.8.1",
-        "typescript": "^6.0.2",
+        "typescript": "^5.9.3",
         "vite": "^8.0.3"
     }
 }

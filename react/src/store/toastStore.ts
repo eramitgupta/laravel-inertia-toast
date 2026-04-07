@@ -1,11 +1,16 @@
-import type { ToastItem, ToastPosition, ToastType } from '../types';
+import type {
+    ToastId,
+    ToastItem,
+    ToastPosition,
+    ToastType,
+} from '../shared/types';
 
 export interface ToastState {
     toasts: ToastItem[];
     position: ToastPosition;
 }
 
-const state: ToastState = {
+let state: ToastState = {
     toasts: [],
     position: 'bottom-right',
 };
@@ -29,17 +34,31 @@ export const subscribeToastStore = (listener: () => void) => {
 export const getToastSnapshot = () => state;
 
 export const setToastPosition = (position: ToastPosition) => {
-    state.position = position;
+    if (state.position === position) {
+        return;
+    }
+
+    state = {
+        ...state,
+        position,
+    };
+
     notify();
 };
 
-export const removeToast = (id: number) => {
-    const index = state.toasts.findIndex((toast) => toast.id === id);
+export const removeToast = (id: ToastId) => {
+    const nextToasts = state.toasts.filter((toast) => toast.id !== id);
 
-    if (index !== -1) {
-        state.toasts.splice(index, 1);
-        notify();
+    if (nextToasts.length === state.toasts.length) {
+        return;
     }
+
+    state = {
+        ...state,
+        toasts: nextToasts,
+    };
+
+    notify();
 };
 
 export const showToast = (
@@ -51,23 +70,21 @@ export const showToast = (
 ) => {
     const id = count++;
 
-    if (position) {
-        state.position = position;
-    }
-
-    state.toasts.push({
-        id,
-        type,
-        title,
-        message,
-        duration,
-    });
+    state = {
+        ...state,
+        position: position ?? state.position,
+        toasts: [
+            ...state.toasts,
+            {
+                id,
+                type,
+                title,
+                message,
+                duration,
+                position,
+            },
+        ],
+    };
 
     notify();
-
-    if (duration > 0) {
-        setTimeout(() => {
-            removeToast(id);
-        }, duration + 500);
-    }
 };

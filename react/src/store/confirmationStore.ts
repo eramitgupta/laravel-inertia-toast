@@ -1,12 +1,12 @@
-import { defaultIcons } from '../constants/defaultIcons';
-import type { ModalOptions, ModalType } from '../types';
+import { defaultIcons } from '../shared/defaultIcons';
+import type { ModalOptions, ModalType } from '../shared/types';
 
 export interface ConfirmationState {
     isOpen: boolean;
     options: Required<Omit<ModalOptions, 'icon'>> & { icon?: string };
 }
 
-const state: ConfirmationState = {
+let state: ConfirmationState = {
     isOpen: false,
     options: {
         title: '',
@@ -59,12 +59,13 @@ export const subscribeConfirmationStore = (listener: () => void) => {
 export const getConfirmationSnapshot = () => state;
 
 export const confirmAction = (options: ModalOptions): Promise<boolean> => {
-    state.options = {
-        ...state.options,
-        ...options,
+    state = {
+        isOpen: true,
+        options: {
+            ...state.options,
+            ...options,
+        },
     };
-
-    state.isOpen = true;
     notify();
 
     return new Promise((resolve) => {
@@ -73,7 +74,11 @@ export const confirmAction = (options: ModalOptions): Promise<boolean> => {
 };
 
 export const handleConfirmationAction = (value: boolean) => {
-    state.isOpen = false;
+    state = {
+        ...state,
+        isOpen: false,
+    };
+
     notify();
     resolvePromise?.(value);
     resolvePromise = null;

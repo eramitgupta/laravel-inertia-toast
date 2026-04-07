@@ -9,14 +9,14 @@ import {
 } from '../store/confirmationStore';
 
 export const useConfirmation = () => {
-    const state = useSyncExternalStore(
+    const snapshot = useSyncExternalStore(
         subscribeConfirmationStore,
         getConfirmationSnapshot,
         getConfirmationSnapshot,
     );
 
     return {
-        state,
+        state: snapshot,
         confirm: confirmAction,
         handleAction: handleConfirmationAction,
         currentType: getCurrentType(),

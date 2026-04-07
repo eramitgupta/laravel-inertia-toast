@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { icons } from '../icons';
-import type { ToastType } from '../types';
+import { useEffect } from 'react';
+import { icons } from '../shared/icons';
+import { useToast } from '../hooks/useToast';
+import type { ToastId, ToastType } from '../shared/types';
 
 interface ToastProps {
-    id: number;
+    id: ToastId;
     type: ToastType;
     title: string;
     message: string;
     duration: number;
-    onClose: (id: number) => void;
 }
 
 export default function Toast({
@@ -17,36 +17,29 @@ export default function Toast({
     title,
     message,
     duration,
-    onClose,
 }: ToastProps) {
-    const [isMounted, setIsMounted] = useState(false);
-
-    const currentIcon = icons[type] || icons.info;
-    const isSingleLine = !title?.trim() || !message?.trim();
+    const { remove } = useToast();
 
     useEffect(() => {
-        const frame = window.requestAnimationFrame(() => {
-            setIsMounted(true);
-        });
-
-        const timer = window.setTimeout(() => {
-            onClose(id);
+        const timerId = window.setTimeout(() => {
+            remove(id);
         }, duration);
 
         return () => {
-            window.cancelAnimationFrame(frame);
-            window.clearTimeout(timer);
+            window.clearTimeout(timerId);
         };
-    }, [duration, id, onClose]);
+    }, [duration, id, remove]);
+
+    const isSingleLine = !title.trim() || !message.trim();
 
     return (
         <div
-            className={`erag-toast erag-${type}${isMounted ? 'erag-show' : ''}`}
+            className={`erag-toast erag-${type} erag-show`}
             style={{ ['--duration' as string]: `${duration}ms` }}
         >
             <div
                 className="erag-toast-icon"
-                dangerouslySetInnerHTML={{ __html: currentIcon }}
+                dangerouslySetInnerHTML={{ __html: icons[type] ?? icons.info }}
             />
 
             <div
@@ -59,7 +52,9 @@ export default function Toast({
             <button
                 type="button"
                 className="erag-toast-close"
-                onClick={() => onClose(id)}
+                onClick={() => {
+                    remove(id);
+                }}
             >
                 <svg
                     aria-hidden="true"

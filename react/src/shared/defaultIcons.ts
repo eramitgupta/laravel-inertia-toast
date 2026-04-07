@@ -1,4 +1,4 @@
-import type { ModalType } from '../types';
+import type { ModalType } from './types';
 
 export const defaultIcons: Partial<Record<ModalType, string>> = {
     info: `

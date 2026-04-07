@@ -2,7 +2,7 @@ import Toast from './Toast';
 import { useToast } from '../hooks/useToast';
 
 export default function ToastContainer() {
-    const { state, remove } = useToast();
+    const { state } = useToast();
 
     return (
         <div className={`erag-toast-container erag-${state.position}`}>
@@ -14,7 +14,6 @@ export default function ToastContainer() {
                     title={toast.title}
                     message={toast.message}
                     duration={toast.duration}
-                    onClose={remove}
                 />
             ))}
         </div>
