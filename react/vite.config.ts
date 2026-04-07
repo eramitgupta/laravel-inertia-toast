@@ -2,7 +2,12 @@ import { resolve } from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-const external = ['react', 'react-dom', '@inertiajs/react'];
+const externalPackages = ['react', 'react-dom', '@inertiajs/react'];
+const isExternal = (id: string): boolean => {
+    return externalPackages.some(
+        (pkg) => id === pkg || id.startsWith(`${pkg}/`),
+    );
+};
 
 export default defineConfig({
     plugins: [react()],
@@ -17,7 +22,7 @@ export default defineConfig({
         emptyOutDir: true,
         cssCodeSplit: false,
         rollupOptions: {
-            external,
+            external: isExternal,
             output: {
                 exports: 'named',
                 globals: {
