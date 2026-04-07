@@ -1,3 +1,53 @@
+.erag-modal-backdrop,
+.erag-modal-container,
+.erag-modal-body,
+.erag-modal-footer,
+.erag-modal-title,
+.erag-modal-message,
+.erag-btn,
+.erag-btn-cancel,
+.erag-btn-info,
+.erag-btn-success,
+.erag-btn-warning,
+.erag-btn-danger,
+.erag-modal-icon-wrapper {
+    --erag-modal-surface: #ffffff;
+    --erag-modal-surface-muted: #f9fafb;
+    --erag-modal-text: #111827;
+    --erag-modal-text-muted: #6b7280;
+    --erag-modal-border: #d1d5db;
+    --erag-modal-shadow: 0 22px 60px rgba(15, 23, 42, 0.22);
+    --erag-modal-backdrop: rgba(15, 23, 42, 0.52);
+    --erag-modal-cancel-bg: #ffffff;
+    --erag-modal-cancel-text: #111827;
+    --erag-modal-cancel-border: #d1d5db;
+}
+
+html.dark .erag-modal-backdrop,
+html.dark .erag-modal-container,
+html.dark .erag-modal-body,
+html.dark .erag-modal-footer,
+html.dark .erag-modal-title,
+html.dark .erag-modal-message,
+html.dark .erag-btn,
+html.dark .erag-btn-cancel,
+html.dark .erag-btn-info,
+html.dark .erag-btn-success,
+html.dark .erag-btn-warning,
+html.dark .erag-btn-danger,
+html.dark .erag-modal-icon-wrapper {
+    --erag-modal-surface: #111827;
+    --erag-modal-surface-muted: #0f172a;
+    --erag-modal-text: #f9fafb;
+    --erag-modal-text-muted: #cbd5e1;
+    --erag-modal-border: #334155;
+    --erag-modal-shadow: 0 22px 60px rgba(2, 6, 23, 0.6);
+    --erag-modal-backdrop: rgba(2, 6, 23, 0.72);
+    --erag-modal-cancel-bg: #1e293b;
+    --erag-modal-cancel-text: #f8fafc;
+    --erag-modal-cancel-border: #475569;
+}
+
 .erag-toast-container {
     position: fixed;
     z-index: 2147483647;
@@ -183,7 +233,7 @@
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(2px);
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--erag-modal-backdrop);
     animation: eragModalFade 0.2s ease;
 }
 
@@ -192,13 +242,16 @@
     max-width: 450px;
     overflow: hidden;
     border-radius: 8px;
-    background: #fff;
+    border: 1px solid var(--erag-modal-border);
+    background: var(--erag-modal-surface);
+    box-shadow: var(--erag-modal-shadow);
 }
 
 .erag-modal-body {
     display: flex;
     gap: 16px;
     padding: 24px;
+    background: var(--erag-modal-surface);
 }
 
 .erag-modal-icon-wrapper {
@@ -235,13 +288,14 @@
 
 .erag-modal-title {
     margin: 0 0 6px;
+    color: var(--erag-modal-text);
     font-size: 18px;
     font-weight: 600;
 }
 
 .erag-modal-message {
     margin: 0;
-    color: #6b7280;
+    color: var(--erag-modal-text-muted);
     font-size: 14px;
 }
 
@@ -249,28 +303,34 @@
     display: flex;
     justify-content: flex-end;
     gap: 12px;
-    background: #f9fafb;
+    border-top: 1px solid var(--erag-modal-border);
+    background: var(--erag-modal-surface-muted);
     padding: 12px 24px;
 }
 
 .erag-btn {
     border: none;
     border-radius: 6px;
+    color: #fff;
     cursor: pointer;
     font-size: 14px;
+    font-weight: 600;
     padding: 8px 16px;
 }
 
 .erag-btn-cancel {
-    border: 1px solid #d1d5db;
-    background: #27ae60;
+    border: 1px solid var(--erag-modal-cancel-border);
+    background: var(--erag-modal-cancel-bg);
+    color: var(--erag-modal-cancel-text);
 }
 
 .erag-btn-info {
     background: #2980b9;
+    color: #fff;
 }
 
 .erag-btn-success {
+    background: #27ae60;
     color: #fff;
 }
 
