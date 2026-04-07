@@ -1,6 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { useToast } from '../hooks/useToast';
 import type { ToastItem, ToastPosition, ToastType } from '../shared/types';
+import {
+    DEFAULT_TOAST_DURATION,
+    isToastPosition,
+    isToastType,
+    TOAST_DEFAULT_TITLES,
+} from '../shared/toast';
 
 type IncomingToast = {
     id?: unknown;
@@ -11,17 +17,6 @@ type IncomingToast = {
     position?: unknown;
 };
 
-const positions: ToastPosition[] = [
-    'top-left',
-    'top-center',
-    'top-right',
-    'bottom-left',
-    'bottom-center',
-    'bottom-right',
-];
-
-const types: ToastType[] = ['success', 'error', 'warning', 'info'];
-
 const normalizeToast = (value: unknown): ToastItem | null => {
     if (!value || typeof value !== 'object') {
         return null;
@@ -29,34 +24,51 @@ const normalizeToast = (value: unknown): ToastItem | null => {
 
     const toast = value as IncomingToast;
 
-    if (
-        !types.includes(toast.type as ToastType) ||
-        typeof toast.message !== 'string'
-    ) {
+    if (!isToastType(toast.type) || typeof toast.message !== 'string') {
         return null;
     }
+
+    const type = toast.type as ToastType;
 
     return {
         id:
             typeof toast.id === 'number' || typeof toast.id === 'string'
                 ? toast.id
-                : `${toast.type}-${toast.message}`,
-        type: toast.type as ToastType,
+                : `${type}-${toast.message}`,
+        type,
         title:
             typeof toast.title === 'string'
                 ? toast.title
-                : (toast.type as ToastType),
+                : TOAST_DEFAULT_TITLES[type],
         message: toast.message,
-        duration: typeof toast.duration === 'number' ? toast.duration : 3000,
-        position: positions.includes(toast.position as ToastPosition)
-            ? (toast.position as ToastPosition)
-            : undefined,
+        duration:
+            typeof toast.duration === 'number'
+                ? toast.duration
+                : DEFAULT_TOAST_DURATION,
+        position: isToastPosition(toast.position) ? toast.position : undefined,
     };
 };
 
+const getInitialPageToast = (): unknown => {
+    const inertiaRoot = document.querySelector<HTMLElement>('[data-page]');
+
+    if (!inertiaRoot?.dataset.page) {
+        return null;
+    }
+
+    try {
+        return (
+            JSON.parse(inertiaRoot.dataset.page) as {
+                props?: { toast?: unknown };
+            }
+        ).props?.toast;
+    } catch {
+        return null;
+    }
+};
+
 export default function FlashToastBridge() {
-    const toast = useToast();
-    const { show } = toast;
+    const { show } = useToast();
     const lastToastId = useRef<ToastItem['id'] | null>(null);
 
     useEffect(() => {
@@ -75,25 +87,6 @@ export default function FlashToastBridge() {
                 nextToast.duration,
                 nextToast.position,
             );
-        };
-
-        const getInitialPageToast = (): unknown => {
-            const inertiaRoot =
-                document.querySelector<HTMLElement>('[data-page]');
-
-            if (!inertiaRoot?.dataset.page) {
-                return null;
-            }
-
-            try {
-                return (
-                    JSON.parse(inertiaRoot.dataset.page) as {
-                        props?: { toast?: unknown };
-                    }
-                ).props?.toast;
-            } catch {
-                return null;
-            }
         };
 
         const handleSuccess = (event: Event) => {

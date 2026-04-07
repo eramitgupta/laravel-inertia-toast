@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ToastContext, type ToastContextState } from '../hooks/useToast';
+import {
+    createToastItem,
+    DEFAULT_TOAST_DURATION,
+    DEFAULT_TOAST_POSITION,
+} from '../shared/toast';
 import type { PluginOptions } from '../shared/types';
 import ConfirmationBox from './ConfirmationBox';
 import FlashToastBridge from './FlashToastBridge';
@@ -10,6 +15,20 @@ interface InertiaToastProviderProps extends PluginOptions {
     children: React.ReactNode;
 }
 
+const updatePositionState = (
+    currentState: ToastContextState,
+    position: ToastContextState['position'],
+): ToastContextState => {
+    if (currentState.position === position) {
+        return currentState;
+    }
+
+    return {
+        ...currentState,
+        position,
+    };
+};
+
 export default function InertiaToastProvider({
     children,
     position,
@@ -17,7 +36,7 @@ export default function InertiaToastProvider({
     const [isMounted, setIsMounted] = useState(false);
     const [state, setState] = useState<ToastContextState>({
         toasts: [],
-        position: position ?? 'bottom-right',
+        position: position ?? DEFAULT_TOAST_POSITION,
     });
 
     useEffect(() => {
@@ -26,10 +45,9 @@ export default function InertiaToastProvider({
 
     useEffect(() => {
         if (position) {
-            setState((currentState) => ({
-                ...currentState,
-                position,
-            }));
+            setState((currentState) =>
+                updatePositionState(currentState, position),
+            );
         }
     }, [position]);
 
@@ -45,23 +63,37 @@ export default function InertiaToastProvider({
             type: 'success' | 'error' | 'warning' | 'info',
             title: string,
             message: string,
-            duration: number = 4500,
+            duration: number = DEFAULT_TOAST_DURATION,
             nextPosition?: PluginOptions['position'],
         ) => {
             setState((currentState) => ({
                 position: nextPosition ?? currentState.position,
                 toasts: [
                     ...currentState.toasts,
-                    {
-                        id: `${Date.now()}-${Math.random()}`,
+                    createToastItem(
+                        `${Date.now()}-${Math.random()}`,
                         type,
                         title,
                         message,
                         duration,
-                        position: nextPosition,
-                    },
+                        nextPosition,
+                    ),
                 ],
             }));
+        },
+        [],
+    );
+
+    const setPosition = useCallback(
+        (value: React.SetStateAction<ToastContextState['position']>) => {
+            setState((currentState) => {
+                const nextPosition =
+                    typeof value === 'function'
+                        ? value(currentState.position)
+                        : value;
+
+                return updatePositionState(currentState, nextPosition);
+            });
         },
         [],
     );
@@ -70,20 +102,10 @@ export default function InertiaToastProvider({
         () => ({
             state,
             remove,
-            setPosition: (
-                value: React.SetStateAction<ToastContextState['position']>,
-            ) => {
-                setState((currentState) => ({
-                    ...currentState,
-                    position:
-                        typeof value === 'function'
-                            ? value(currentState.position)
-                            : value,
-                }));
-            },
+            setPosition,
             show,
         }),
-        [remove, show, state],
+        [remove, setPosition, show, state],
     );
 
     return (

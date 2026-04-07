@@ -1,9 +1,10 @@
-import type {
-    ToastId,
-    ToastItem,
-    ToastPosition,
-    ToastType,
-} from '../shared/types';
+import type { ToastId, ToastPosition, ToastType } from '../shared/types';
+import {
+    createToastItem,
+    DEFAULT_TOAST_DURATION,
+    DEFAULT_TOAST_POSITION,
+} from '../shared/toast';
+import type { ToastItem } from '../shared/types';
 
 export interface ToastState {
     toasts: ToastItem[];
@@ -12,7 +13,7 @@ export interface ToastState {
 
 let state: ToastState = {
     toasts: [],
-    position: 'bottom-right',
+    position: DEFAULT_TOAST_POSITION,
 };
 
 const subscribers = new Set<() => void>();
@@ -65,7 +66,7 @@ export const showToast = (
     type: ToastType,
     title: string,
     message: string,
-    duration = 4500,
+    duration = DEFAULT_TOAST_DURATION,
     position?: ToastPosition,
 ) => {
     const id = count++;
@@ -75,14 +76,7 @@ export const showToast = (
         position: position ?? state.position,
         toasts: [
             ...state.toasts,
-            {
-                id,
-                type,
-                title,
-                message,
-                duration,
-                position,
-            },
+            createToastItem(id, type, title, message, duration, position),
         ],
     };
 
