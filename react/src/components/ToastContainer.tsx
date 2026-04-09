@@ -1,5 +1,5 @@
-import Toast from './Toast';
 import { useToast } from '../hooks/useToast';
+import Toast from './Toast';
 
 export default function ToastContainer() {
     const { state } = useToast();
@@ -7,14 +7,7 @@ export default function ToastContainer() {
     return (
         <div className={`erag-toast-container erag-${state.position}`}>
             {state.toasts.map((toast) => (
-                <Toast
-                    key={toast.id}
-                    id={toast.id}
-                    type={toast.type}
-                    title={toast.title}
-                    message={toast.message}
-                    duration={toast.duration}
-                />
+                <Toast key={toast.id} {...toast} />
             ))}
         </div>
     );

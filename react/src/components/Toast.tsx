@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { icons } from '../shared/icons';
 import { useToast } from '../hooks/useToast';
+import { icons } from '../shared/icons';
 import type { ToastId, ToastType } from '../shared/types';
 
 interface ToastProps {
@@ -31,6 +31,12 @@ export default function Toast({
     }, [duration, id, remove]);
 
     const isSingleLine = !title.trim() || !message.trim();
+    const contentClassName = [
+        'erag-toast-content',
+        isSingleLine ? 'erag-single-line' : null,
+    ]
+        .filter(Boolean)
+        .join(' ');
 
     return (
         <div
@@ -42,9 +48,7 @@ export default function Toast({
                 dangerouslySetInnerHTML={{ __html: icons[type] ?? icons.info }}
             />
 
-            <div
-                className={`erag-toast-content${isSingleLine ? 'erag-single-line' : ''}`}
-            >
+            <div className={contentClassName}>
                 <strong>{title}</strong>
                 <span>{message}</span>
             </div>

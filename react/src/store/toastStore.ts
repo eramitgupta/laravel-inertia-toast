@@ -1,20 +1,14 @@
-import type { ToastId, ToastPosition, ToastType } from '../shared/types';
+import { createToastItem, DEFAULT_TOAST_DURATION } from '../shared/toast';
 import {
-    createToastItem,
-    DEFAULT_TOAST_DURATION,
-    DEFAULT_TOAST_POSITION,
-} from '../shared/toast';
-import type { ToastItem } from '../shared/types';
+    appendToastToState,
+    createToastState,
+    removeToastFromState,
+    updateToastStatePosition,
+} from '../shared/toastState';
+import type { ToastState } from '../shared/toastState';
+import type { ToastId, ToastPosition, ToastType } from '../shared/types';
 
-export interface ToastState {
-    toasts: ToastItem[];
-    position: ToastPosition;
-}
-
-let state: ToastState = {
-    toasts: [],
-    position: DEFAULT_TOAST_POSITION,
-};
+let state: ToastState = createToastState();
 
 const subscribers = new Set<() => void>();
 
@@ -35,30 +29,24 @@ export const subscribeToastStore = (listener: () => void) => {
 export const getToastSnapshot = () => state;
 
 export const setToastPosition = (position: ToastPosition) => {
-    if (state.position === position) {
+    const nextState = updateToastStatePosition(state, position);
+
+    if (nextState === state) {
         return;
     }
 
-    state = {
-        ...state,
-        position,
-    };
-
+    state = nextState;
     notify();
 };
 
 export const removeToast = (id: ToastId) => {
-    const nextToasts = state.toasts.filter((toast) => toast.id !== id);
+    const nextState = removeToastFromState(state, id);
 
-    if (nextToasts.length === state.toasts.length) {
+    if (nextState === state) {
         return;
     }
 
-    state = {
-        ...state,
-        toasts: nextToasts,
-    };
-
+    state = nextState;
     notify();
 };
 
@@ -71,14 +59,10 @@ export const showToast = (
 ) => {
     const id = count++;
 
-    state = {
-        ...state,
-        position: position ?? state.position,
-        toasts: [
-            ...state.toasts,
-            createToastItem(id, type, title, message, duration, position),
-        ],
-    };
+    state = appendToastToState(
+        state,
+        createToastItem(id, type, title, message, duration, position),
+    );
 
     notify();
 };

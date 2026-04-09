@@ -23,7 +23,7 @@
         "./dist/style.css": "./dist/style.css"
     },
     "scripts": {
-        "build": "rm -rf dist && vite build && tsc -p tsconfig.json",
+        "build": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && vite build && tsc -p tsconfig.json",
         "prepare": "npm run build",
         "upgrade": "npx npm-check-updates -u",
         "lint": "prettier --write \"./**/*.{css,ts,tsx,js,json,md}\"",

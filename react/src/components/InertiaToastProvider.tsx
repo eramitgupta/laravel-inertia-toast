@@ -1,11 +1,14 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ToastContext, type ToastContextState } from '../hooks/useToast';
+import { ToastContext } from '../hooks/useToast';
+import type { ToastContextState } from '../hooks/useToast';
+import { createToastItem, DEFAULT_TOAST_DURATION } from '../shared/toast';
 import {
-    createToastItem,
-    DEFAULT_TOAST_DURATION,
-    DEFAULT_TOAST_POSITION,
-} from '../shared/toast';
+    appendToastToState,
+    createToastState,
+    removeToastFromState,
+    updateToastStatePosition,
+} from '../shared/toastState';
 import type { PluginOptions } from '../shared/types';
 import ConfirmationBox from './ConfirmationBox';
 import FlashToastBridge from './FlashToastBridge';
@@ -15,29 +18,14 @@ interface InertiaToastProviderProps extends PluginOptions {
     children: React.ReactNode;
 }
 
-const updatePositionState = (
-    currentState: ToastContextState,
-    position: ToastContextState['position'],
-): ToastContextState => {
-    if (currentState.position === position) {
-        return currentState;
-    }
-
-    return {
-        ...currentState,
-        position,
-    };
-};
-
 export default function InertiaToastProvider({
     children,
     position,
 }: InertiaToastProviderProps) {
     const [isMounted, setIsMounted] = useState(false);
-    const [state, setState] = useState<ToastContextState>({
-        toasts: [],
-        position: position ?? DEFAULT_TOAST_POSITION,
-    });
+    const [state, setState] = useState<ToastContextState>(() =>
+        createToastState(position),
+    );
 
     useEffect(() => {
         setIsMounted(true);
@@ -46,16 +34,13 @@ export default function InertiaToastProvider({
     useEffect(() => {
         if (position) {
             setState((currentState) =>
-                updatePositionState(currentState, position),
+                updateToastStatePosition(currentState, position),
             );
         }
     }, [position]);
 
     const remove = useCallback((id: number | string) => {
-        setState((currentState) => ({
-            ...currentState,
-            toasts: currentState.toasts.filter((toast) => toast.id !== id),
-        }));
+        setState((currentState) => removeToastFromState(currentState, id));
     }, []);
 
     const show = useCallback(
@@ -66,10 +51,9 @@ export default function InertiaToastProvider({
             duration: number = DEFAULT_TOAST_DURATION,
             nextPosition?: PluginOptions['position'],
         ) => {
-            setState((currentState) => ({
-                position: nextPosition ?? currentState.position,
-                toasts: [
-                    ...currentState.toasts,
+            setState((currentState) =>
+                appendToastToState(
+                    currentState,
                     createToastItem(
                         `${Date.now()}-${Math.random()}`,
                         type,
@@ -78,8 +62,8 @@ export default function InertiaToastProvider({
                         duration,
                         nextPosition,
                     ),
-                ],
-            }));
+                ),
+            );
         },
         [],
     );
@@ -92,7 +76,7 @@ export default function InertiaToastProvider({
                         ? value(currentState.position)
                         : value;
 
-                return updatePositionState(currentState, nextPosition);
+                return updateToastStatePosition(currentState, nextPosition);
             });
         },
         [],
@@ -107,24 +91,22 @@ export default function InertiaToastProvider({
         }),
         [remove, setPosition, show, state],
     );
+    const portalContent = (
+        <ToastContext.Provider value={contextValue}>
+            <>
+                <ToastContainer />
+                <ConfirmationBox />
+                <FlashToastBridge />
+            </>
+        </ToastContext.Provider>
+    );
 
     return (
         <>
             <ToastContext.Provider value={contextValue}>
                 {children}
             </ToastContext.Provider>
-            {isMounted
-                ? createPortal(
-                      <ToastContext.Provider value={contextValue}>
-                          <>
-                              <ToastContainer />
-                              <ConfirmationBox />
-                              <FlashToastBridge />
-                          </>
-                      </ToastContext.Provider>,
-                      document.body,
-                  )
-                : null}
+            {isMounted ? createPortal(portalContent, document.body) : null}
         </>
     );
 }

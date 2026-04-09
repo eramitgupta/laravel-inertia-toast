@@ -1,10 +1,8 @@
-import {
-    createContext,
-    useContext,
-    useSyncExternalStore,
-    type Dispatch,
-    type SetStateAction,
-} from 'react';
+import { createContext, useContext, useSyncExternalStore } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import { TOAST_DEFAULT_TITLES } from '../shared/toast';
+import type { ToastState } from '../shared/toastState';
+import type { ToastItem, ToastPosition, ToastType } from '../shared/types';
 import {
     getToastSnapshot,
     removeToast,
@@ -12,13 +10,8 @@ import {
     showToast,
     subscribeToastStore,
 } from '../store/toastStore';
-import type { ToastItem, ToastPosition, ToastType } from '../shared/types';
-import { TOAST_DEFAULT_TITLES } from '../shared/toast';
 
-export interface ToastContextState {
-    toasts: ToastItem[];
-    position: ToastPosition;
-}
+export type ToastContextState = ToastState;
 
 export interface ToastContextValue {
     state: ToastContextState;

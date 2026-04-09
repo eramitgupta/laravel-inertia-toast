@@ -1,13 +1,20 @@
-import { createElement, type ReactNode } from 'react';
-import { createRoot, type Root } from 'react-dom/client';
+import { createElement } from 'react';
+import type { ReactNode } from 'react';
+import { createRoot } from 'react-dom/client';
+import type { Root } from 'react-dom/client';
 import ConfirmationBox from './components/ConfirmationBox';
 import FlashToastBridge from './components/FlashToastBridge';
 import ToastContainer from './components/ToastContainer';
-import { setToastPosition } from './store/toastStore';
 import type { PluginOptions } from './shared/types';
+import { setToastPosition } from './store/toastStore';
 import './shared/style.css';
 
 const mountedRoots = new Map<string, Root>();
+const standaloneComponents = [
+    ['erag-toast-container', createElement(ToastContainer)],
+    ['erag-modal-container', createElement(ConfirmationBox)],
+    ['erag-toast-bridge', createElement(FlashToastBridge)],
+] as const;
 
 const mountStandaloneComponent = (id: string, component: ReactNode): void => {
     if (mountedRoots.has(id)) {
@@ -24,18 +31,9 @@ const mountStandaloneComponent = (id: string, component: ReactNode): void => {
 };
 
 export const initializeToast = (options: PluginOptions = {}): void => {
-    mountStandaloneComponent(
-        'erag-toast-container',
-        createElement(ToastContainer),
-    );
-    mountStandaloneComponent(
-        'erag-modal-container',
-        createElement(ConfirmationBox),
-    );
-    mountStandaloneComponent(
-        'erag-toast-bridge',
-        createElement(FlashToastBridge),
-    );
+    standaloneComponents.forEach(([id, component]) => {
+        mountStandaloneComponent(id, component);
+    });
 
     if (options.position) {
         setToastPosition(options.position);

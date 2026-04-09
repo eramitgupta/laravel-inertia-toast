@@ -20,6 +20,7 @@ let state: ConfirmationState = {
 
 const subscribers = new Set<() => void>();
 let resolvePromise: ((value: boolean) => void) | null = null;
+const DEFAULT_MODAL_TYPE: ModalType = 'info';
 
 const typeConfig = {
     info: {
@@ -85,9 +86,9 @@ export const handleConfirmationAction = (value: boolean) => {
 };
 
 export const getCurrentType = () =>
-    typeConfig[state.options.type || ('info' as ModalType)];
+    typeConfig[state.options.type ?? DEFAULT_MODAL_TYPE];
 
 export const getResolvedIcon = () =>
     state.options.icon
         ? state.options.icon
-        : defaultIcons[state.options.type || ('info' as ModalType)];
+        : defaultIcons[state.options.type ?? DEFAULT_MODAL_TYPE];
