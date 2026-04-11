@@ -46,7 +46,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
           cache-dependency-path: |
             vue/package-lock.json
@@ -67,25 +67,3 @@ jobs:
       - name: Check React package formatting
         working-directory: react
         run: npm run lint:check
-
-      - name: Add Lint Results as PR Comment
-        if: github.event_name == 'pull_request' && failure()
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const output = `
-            ## ⚠️ Lint Check Failed
-
-            Please fix the PHP, Vue package, or React package lint issues before merging.
-            Run \`vendor/bin/pint --test\` in the package root, \`npm run lint:check\` in \`vue/\`, and \`npm run lint:check\` in \`react/\` locally.
-
-            For more information about Laravel Pint, visit: https://laravel.com/docs/pint
-            `;
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
