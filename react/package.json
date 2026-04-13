@@ -1,49 +1,49 @@
 {
-    "name": "@erag/inertia-toast-react",
-    "version": "1.0.0",
-    "type": "module",
-    "sideEffects": [
-        "./src/shared/style.css"
-    ],
-    "files": [
-        "src",
-        "dist"
-    ],
-    "main": "./src/index.ts",
-    "module": "./src/index.ts",
-    "types": "./src/index.ts",
-    "exports": {
-        ".": {
-            "types": "./src/index.ts",
-            "import": "./src/index.ts",
-            "default": "./src/index.ts"
-        },
-        "./style.css": "./src/shared/style.css",
-        "./src/shared/style.css": "./src/shared/style.css",
-        "./dist/style.css": "./dist/style.css"
+  "name": "@erag/inertia-toast-react",
+  "version": "1.0.0",
+  "type": "module",
+  "sideEffects": [
+    "./src/shared/style.css"
+  ],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
     },
-    "scripts": {
-        "build": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && vite build && tsc -p tsconfig.json",
-        "prepare": "npm run build",
-        "upgrade": "npx npm-check-updates -u",
-        "lint": "prettier --write \"./**/*.{css,ts,tsx,js,json,md}\"",
-        "lint:check": "prettier --check \"./**/*.{css,ts,tsx,js,json,md}\"",
-        "type-check": "tsc --noEmit"
-    },
-    "publishConfig": {
-        "access": "public"
-    },
-    "peerDependencies": {
-        "@inertiajs/react": "^2.0.0 || ^3.0.0",
-        "react": "^18.0.0 || ^19.0.0",
-        "react-dom": "^18.0.0 || ^19.0.0"
-    },
-    "devDependencies": {
-        "@types/react": "^19.2.2",
-        "@types/react-dom": "^19.2.2",
-        "@vitejs/plugin-react": "^5.1.0",
-        "prettier": "^3.8.1",
-        "typescript": "^5.9.3",
-        "vite": "^8.0.3"
-    }
+    "./style.css": "./src/shared/style.css",
+    "./src/shared/style.css": "./src/shared/style.css",
+    "./dist/style.css": "./dist/style.css"
+  },
+  "scripts": {
+    "build": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && vite build && tsc -p tsconfig.json",
+    "prepare": "npm run build",
+    "upgrade": "npx npm-check-updates -u",
+    "lint": "prettier --write .",
+    "lint:check": "prettier --check .",
+    "type-check": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@inertiajs/react": "^2.0.0 || ^3.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.0"
+  }
 }
