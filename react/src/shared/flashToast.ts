@@ -42,9 +42,7 @@ export const normalizeIncomingToast = (value: unknown): ToastItem | null => {
             ? toast.id
             : `${toast.type}-${toast.message}`,
         toast.type,
-        typeof toast.title === 'string'
-            ? toast.title
-            : '',
+        typeof toast.title === 'string' ? toast.title : '',
         toast.message,
         typeof toast.duration === 'number'
             ? toast.duration
