@@ -1,24 +1,38 @@
 ---
 title: Styling · Toast & Modal CSS
-description: Learn how styling works in @erag/inertia-toast. All CSS is safely scoped with the erag- prefix to avoid conflicts with Tailwind, Bootstrap, or custom styles.
+description: Learn how toast and modal styling works in the Vue and React packages.
 keywords:
   - vue toast css
-  - vue modal css
-  - vue notification styling
+  - react toast css
+  - modal css
   - erag toast styling
-  - scoped css vue plugin
-  - vue toast css prefix
+  - scoped css
+  - toast css prefix
 ---
 
 # Styling
 
-`@erag/inertia-toast` is designed to be safe by default when it comes to CSS.
+Both frontend packages ship with their own stylesheet.
 
-All styles used by the library are scoped with a unique `erag-` prefix, so they do not clash with your existing styles or UI frameworks.
+All classes use the `erag-` prefix, so the styles stay isolated from the rest of your app.
 
-This means you can use it with Tailwind CSS, Bootstrap, Vuetify, or your own custom CSS.
+That makes it safe to use with Tailwind, Bootstrap, or your own CSS.
 
-## Scoped CSS
+## Import the stylesheet
+
+::: code-group
+
+```ts [Vue]
+import '@erag/inertia-toast-vue/style.css';
+```
+
+```ts [React]
+import '@erag/inertia-toast-react/style.css';
+```
+
+:::
+
+## Scoped classes
 
 Every CSS class used internally starts with:
 
@@ -26,21 +40,21 @@ Every CSS class used internally starts with:
 erag-
 ```
 
-This helps avoid issues like:
+This helps avoid problems like:
 
 - button styles being overridden
 - modal layouts breaking
 - toast animations conflicting with global styles
 
-You do not need to rename anything or worry about style conflicts.
+You do not need to rename anything before using the package.
 
-## Common CSS Classes
+## Common classes
 
-Here are some of the main classes used by the library.
+These are the main classes you will usually override.
 
 ### Toast
 
-- `.erag-toast-container` - Main toast wrapper
+- `.erag-toast-container` - Toast container
 - `.erag-toast` - Individual toast item
 - `.erag-toast-success` - Success toast
 - `.erag-toast-error` - Error toast
@@ -56,22 +70,34 @@ Here are some of the main classes used by the library.
 - `.erag-btn-confirm` - Confirm button
 - `.erag-btn-cancel` - Cancel button
 
-## Custom Styling
+## Custom styling
 
-If you want to customize the look, you can safely override styles using the same class names.
+If you want to change the look, override these classes in your app stylesheet.
 
-### Example: Custom Toast Width
+### Change toast width
 
 ```css
 .erag-toast {
-  max-width: 420px;
+    max-width: 420px;
 }
 ```
 
-### Example: Change Confirm Button Color
+### Change confirm button color
 
 ```css
 .erag-btn-confirm {
-  background-color: #dc2626;
+    background-color: #dc2626;
 }
 ```
+
+### Change modal radius
+
+```css
+.erag-modal {
+    border-radius: 20px;
+}
+```
+
+## Styling note
+
+The package CSS gives you the default look. You can keep it as-is or override only the parts you want.

@@ -101,7 +101,7 @@ interface ToastPayload {
 Check these first:
 
 - the plugin is registered with `app.use(ToastPlugin)`
-- `@erag/inertia-toast/dist/style.css` is imported
+- `@erag/inertia-toast-vue/style.css` is imported
 - the request returns an Inertia response or redirect
 - the page payload contains `props.toast`
 

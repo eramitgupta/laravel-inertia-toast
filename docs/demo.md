@@ -4,6 +4,7 @@ description: Quick demo page for Laravel Inertia Toast. See how toast messages a
 keywords:
   - laravel inertia toast demo
   - vue toast demo
+  - react toast demo
   - confirmation modal demo
 ---
 
@@ -14,10 +15,8 @@ keywords:
 ## What you can see here
 
 - **Server-side toasts** from Laravel flash messages
-- **Client-side toasts** triggered directly in Vue
+- **Client-side toasts** triggered directly in Vue or React
 - **Different toast types** like success, error, warning, and info
 - **Multiple positions** to see how placement looks
 - **Confirmation modal flow** before delete actions
 - **Real UI behavior** so you can quickly understand how it feels in an app
-
-[See installation steps](/installation)

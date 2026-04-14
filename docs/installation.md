@@ -1,56 +1,45 @@
 ---
 title: Installation Guide
-description: Install Laravel Inertia Toast for Laravel, Inertia.js, and Vue 3 with package setup, dependencies, and first toast example.
+description: Install Laravel Inertia Toast in a Laravel + Inertia app with Vue or React.
 head:
   - - meta
     - name: description
-      content: Install Laravel Inertia Toast for Laravel, Inertia.js, and Vue 3 with package setup, dependencies, and first toast example.
+      content: Install Laravel Inertia Toast in a Laravel + Inertia app with Vue or React.
 ---
 
 # Installation
 
-This package has two parts:
+You need two packages:
 
-- a Laravel package for flashing and sharing toast data
-- a Vue package for rendering notifications and confirmation dialogs
+- the Laravel package
+- the frontend package for your framework
 
 <div class="lit-grid lit-grid--compact">
-  <div class="lit-card lit-card--package">
+  <div class="lit-card lit-card--backend-package">
     <h3>Backend Package</h3>
-    <p>Registers the helper, facade, and middleware integration in Laravel.</p>
+    <p>Handles the Laravel helper, facade, and shared Inertia toast data.</p>
   </div>
-  <div class="lit-card lit-card--plugin">
+  <div class="lit-card lit-card--frontend-plugin">
     <h3>Frontend Plugin</h3>
-    <p>Mounts toast and confirmation UI once in your Vue 3 Inertia bootstrap.</p>
+    <p>Renders the toast UI and confirmation dialog in Vue or React.</p>
   </div>
-  <div class="lit-card lit-card--setup">
-    <h3>Low Setup Cost</h3>
-    <p>No manual provider wiring in a normal Laravel app and only one plugin registration on the frontend.</p>
+  <div class="lit-card lit-card--simple-setup">
+    <h3>Simple Setup</h3>
+    <p>Laravel works automatically. On the frontend, you only need one setup step.</p>
   </div>
-  <div class="lit-card lit-card--react">
-    <h3>React Support</h3>
-    <p>Coming soon. Install Vue 3 for now if you want to use the current frontend package.</p>
+  <div class="lit-card lit-card--package-choice">
+    <h3>Package</h3>
+    <p>Use the React package in React apps and the Vue package in Vue apps.</p>
   </div>
 </div>
-
-## Setup level
-
-This is a low-config integration:
-
-- Laravel auto-discovers the service provider
-- middleware is pushed into the `web` group automatically
-- the Vue side needs one plugin registration and one CSS import
-
-It is not a zero-dependency package, because it builds on Laravel, Inertia, and Vue.
 
 ## Requirements
 
 - PHP `>= 8.1`
 - Laravel `10`, `11`, `12`, or `13`
 - `inertiajs/inertia-laravel` `^1.3`, `^2.0`, or `^3.0`
-- Vue `3`
-- `@inertiajs/core` `^2.0` or `^3.0`
-- `@inertiajs/vue3` `^2.0` or `^3.0`
+- Vue `3` with `@inertiajs/core` `^2.0` or `^3.0` and `@inertiajs/vue3` `^2.0` or `^3.0`
+- React `18` or `19` with `@inertiajs/react` `^2.0` or `^3.0`
 
 ## 1. Install the Laravel package
 
@@ -60,25 +49,35 @@ composer require erag/laravel-inertia-toast
 
 Laravel package discovery registers the service provider automatically.
 
-## 2. Install the Vue package
+## 2. Install the frontend package
 
-If you are consuming the frontend package from the Composer-installed vendor directory:
+Install the package for the frontend you use.
 
-```bash
+::: code-group
+
+```bash [Vue]
 npm install ./vendor/erag/laravel-inertia-toast/vue
 ```
 
-If you publish the Vue package separately to your own registry, install it from there instead.
+```bash [React]
+npm install ./vendor/erag/laravel-inertia-toast/react
+```
 
-## 3. Register the Vue plugin
+:::
 
-Add the plugin in your Inertia app bootstrap, usually `resources/js/app.js` or `resources/js/app.ts`.
+If you publish these packages to your own registry, install from there instead.
 
-```ts
+## 3. Register the frontend package
+
+Add the frontend package in your Inertia bootstrap file, usually `resources/js/app.js` or `resources/js/app.ts`.
+
+::: code-group
+
+```ts [Vue]
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
-import ToastPlugin from '@erag/inertia-toast';
-import '@erag/inertia-toast/dist/style.css';
+import ToastPlugin from '@erag/inertia-toast-vue';
+import '@erag/inertia-toast-vue/style.css';
 
 createInertiaApp({
     resolve: (name) => {
@@ -96,38 +95,40 @@ createInertiaApp({
 });
 ```
 
-## 4. Trigger your first toast
+```tsx [React Provider]
+import { createInertiaApp } from '@inertiajs/react';
+import { InertiaToastProvider } from '@erag/inertia-toast-react';
+import '@erag/inertia-toast-react/style.css';
 
-```php
-public function store()
-{
-    toast('Post created successfully', 'success', 'Saved');
-
-    return redirect()->route('posts.index');
-}
+createInertiaApp({
+    withApp(app) {
+        return (
+            <InertiaToastProvider position="bottom-right">
+                {app}
+            </InertiaToastProvider>
+        );
+    },
+});
 ```
 
-After the redirect, the toast is rendered automatically.
+```ts [React Initializer]
+import initializeToast from '@erag/inertia-toast-react';
+import '@erag/inertia-toast-react/style.css';
 
-## What the package registers
+initializeToast({
+    position: 'bottom-right',
+});
+```
 
-On the Laravel side:
+:::
 
-- the global `toast()` helper
-- the `InertiaToast` alias and facade
-- `ShareInertiaToastMiddleware` inside the `web` middleware group
-
-On the Vue side:
-
-- a toast container
-- a confirmation modal container
-- an Inertia flash bridge that reads `props.toast`
+If you are using React, prefer the provider setup. Use the initializer only if you do not want to wrap the app tree.
 
 ## Verify the setup
 
-Use this checklist if the first toast does not appear:
+If toasts are not showing, check these:
 
-- the Vue plugin is registered with `.use(ToastPlugin)`
-- the package stylesheet is imported
+- the Vue plugin or React provider/initializer is registered
+- the matching package stylesheet is imported
 - the request ends with an Inertia response or redirect
 - your app is bootstrapped through the standard Inertia entry file

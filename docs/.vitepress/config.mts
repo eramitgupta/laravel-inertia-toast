@@ -3,9 +3,9 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
     base: '/laravel-inertia-toast/',
     lang: 'en-US',
-    title: 'Laravel Inertia Toast Docs',
+    title: 'Laravel Inertia Toast',
     description:
-        'Laravel Inertia Toast documentation for toast notifications and confirmation dialogs with Laravel, Inertia.js, and Vue 3.',
+        'Laravel Inertia Toast documentation for toast notifications and confirmation dialogs with Laravel, Inertia.js, Vue 3, and React.',
     cleanUrls: true,
     lastUpdated: true,
     head: [
@@ -23,7 +23,7 @@ export default defineConfig({
             {
                 name: 'keywords',
                 content:
-                    'Laravel Inertia Toast, Laravel toast notifications, Inertia.js toast, Vue 3 toast plugin, Laravel confirmation dialog',
+                    'Laravel Inertia Toast, Laravel toast notifications, Inertia.js toast, Vue 3 toast plugin, React toast package, Laravel confirmation dialog',
             },
         ],
         ['meta', { property: 'og:type', content: 'website' }],
@@ -40,7 +40,7 @@ export default defineConfig({
             {
                 property: 'og:description',
                 content:
-                    'Documentation for Laravel Inertia Toast, a package for toast notifications and confirmation dialogs in Laravel, Inertia.js, and Vue 3.',
+                    'Documentation for Laravel Inertia Toast, a package for toast notifications and confirmation dialogs in Laravel, Inertia.js, Vue 3, and React.',
             },
         ],
         [
@@ -69,7 +69,7 @@ export default defineConfig({
             {
                 name: 'twitter:description',
                 content:
-                    'Toast notifications and confirmation dialogs for Laravel, Inertia.js, and Vue 3.',
+                    'Toast notifications and confirmation dialogs for Laravel, Inertia.js, Vue 3, and React.',
             },
         ],
         [
@@ -84,9 +84,9 @@ export default defineConfig({
     themeConfig: {
         nav: [
             { text: 'Demo', link: '/demo' },
-            { text: 'Guide', link: '/installation' },
             { text: 'Laravel', link: '/laravel' },
             { text: 'Vue', link: '/vue' },
+            { text: 'React', link: '/react' },
         ],
         sidebar: [
             {
@@ -102,6 +102,7 @@ export default defineConfig({
                 items: [
                     { text: 'Laravel Usage', link: '/laravel' },
                     { text: 'Vue Usage', link: '/vue' },
+                    { text: 'React Usage', link: '/react' },
                     { text: 'Modal Usage', link: '/modal-usage' },
                     { text: 'Styling', link: '/styling' },
                 ],

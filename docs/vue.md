@@ -16,8 +16,8 @@ The Vue package handles rendering, client-side notifications, and promise-based 
 Register the plugin once in your Inertia bootstrap file:
 
 ```ts
-import ToastPlugin from '@erag/inertia-toast';
-import '@erag/inertia-toast/dist/style.css';
+import ToastPlugin from '@erag/inertia-toast-vue';
+import '@erag/inertia-toast-vue/style.css';
 
 app.use(ToastPlugin, {
     position: 'bottom-right',
@@ -51,7 +51,7 @@ interface PluginOptions {
 Use `useToast()` when you want to trigger client-side notifications without waiting for a Laravel redirect.
 
 ```ts
-import { useToast } from '@erag/inertia-toast';
+import { useToast } from '@erag/inertia-toast-vue';
 
 const toast = useToast();
 
@@ -65,7 +65,7 @@ toast.info('Background sync started', 'Info');
 
 ```vue
 <script setup lang="ts">
-import { useToast } from '@erag/inertia-toast';
+import { useToast } from '@erag/inertia-toast-vue';
 
 const toast = useToast();
 
@@ -86,7 +86,7 @@ const notify = () => {
 The confirmation composable returns a promise, which makes destructive flows simple to write.
 
 ```ts
-import { useConfirmation } from '@erag/inertia-toast';
+import { useConfirmation } from '@erag/inertia-toast-vue';
 
 const { confirm } = useConfirmation();
 
@@ -104,7 +104,7 @@ const accepted = await confirm({
 ```vue
 <script setup lang="ts">
 import { router } from '@inertiajs/vue3';
-import { useConfirmation } from '@erag/inertia-toast';
+import { useConfirmation } from '@erag/inertia-toast-vue';
 
 const { confirm } = useConfirmation();
 

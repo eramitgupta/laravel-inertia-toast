@@ -1,143 +1,236 @@
 ---
-title: Modal Usage · Vue Confirmation Dialogs
-description: Learn how to use promise-based confirmation modals in Vue 3 with @erag/inertia-toast. Perfect for delete, logout, and critical actions.
+title: Modal Usage
+description: Learn how to use promise-based confirmation modals in Vue and React with Laravel Inertia Toast.
 keywords:
   - vue confirmation modal
-  - vue modal usage
-  - vue 3 confirm dialog
-  - vue promise based modal
-  - vue delete confirmation
-  - vue warning modal
+  - react confirmation modal
+  - inertia modal usage
+  - promise based modal
+  - delete confirmation
+  - warning modal
 ---
 
 # Modal Usage
 
-Confirmation modals are used when you want the user to confirm an action before continuing.
-Common examples include deleting data, logging out, or performing irreversible operations.
+Use the confirmation modal when the user needs to approve an action before it continues.
 
-With `@erag/inertia-toast`, modals are designed to be:
+Common cases:
 
-- Promise-based with `async` and `await`
-- Easy to read and use
-- Free from callback chains
-- Fully typed with TypeScript
-- Clean and predictable
+- deleting data
+- logging out
+- discarding changes
+- publishing or submitting something important
 
-## Basic Modal Example
+The modal API is promise-based, so the code stays simple and linear.
 
-Import the `useConfirmation` composable and call `confirm()`.
+## Basic example
 
-```ts
-import { useConfirmation } from '@erag/inertia-toast';
+Import `useConfirmation()` and call `confirm()`.
+
+::: code-group
+
+```ts [Vue]
+import { useConfirmation } from '@erag/inertia-toast-vue';
 
 const modal = useConfirmation();
 
 const ok = await modal.confirm({
-  title: 'Delete?',
-  message: 'Are you sure?',
-  type: 'danger'
+    title: 'Delete?',
+    message: 'Are you sure?',
+    type: 'danger',
 });
 ```
 
-- If the user confirms, `ok` will be `true`
-- If the user cancels or closes, `ok` will be `false`
+```ts [React]
+import { useConfirmation } from '@erag/inertia-toast-react';
 
-## Real-World Example: Delete Action
+const confirmation = useConfirmation();
 
-This is the most common use case for confirmation modals.
+const ok = await confirmation.confirm({
+    title: 'Delete?',
+    message: 'Are you sure?',
+    type: 'danger',
+});
+```
 
-```vue
+:::
+
+- `true` means the user confirmed
+- `false` means the user cancelled or closed the modal
+
+## Delete action
+
+This is the most common modal flow.
+
+::: code-group
+
+```vue [Vue]
 <script setup lang="ts">
-import { useConfirmation, useToast } from '@erag/inertia-toast';
+import { useConfirmation, useToast } from '@erag/inertia-toast-vue';
 
 const modal = useConfirmation();
 const toast = useToast();
 
 const handleDelete = async () => {
     const isConfirmed = await modal.confirm({
-        title: 'Delete Account?',
+        title: 'Delete account?',
         message: 'Are you sure? This action cannot be undone.',
         confirmText: 'Yes, Delete',
         cancelText: 'No, Keep it',
-        type: 'danger'
+        type: 'danger',
     });
 
     if (isConfirmed) {
-        // Perform delete logic here
         toast.success('Account deleted successfully');
-    } else {
-        toast.info('Action cancelled');
+        return;
     }
+
+    toast.info('Action cancelled');
 };
 </script>
 ```
 
-## What Happens Internally?
+```tsx [React]
+import { useConfirmation, useToast } from '@erag/inertia-toast-react';
 
-```ts
-const isConfirmed = await modal.confirm({ ... });
+export default function DeleteAccountButton() {
+    const confirmation = useConfirmation();
+    const toast = useToast();
+
+    const handleDelete = async (): Promise<void> => {
+        const isConfirmed = await confirmation.confirm({
+            title: 'Delete account?',
+            message: 'Are you sure? This action cannot be undone.',
+            confirmText: 'Yes, Delete',
+            cancelText: 'No, Keep it',
+            type: 'danger',
+        });
+
+        if (isConfirmed) {
+            toast.success('Account deleted successfully');
+            return;
+        }
+
+        toast.info('Action cancelled');
+    };
+
+    return <button onClick={handleDelete}>Delete account</button>;
+}
 ```
 
-### Step-by-Step Flow
+:::
 
-1. `handleDelete()` is called
-2. The confirmation modal opens
-3. Code execution pauses at `await`
-4. User takes an action:
-   Confirm resolves `true`
-   Cancel or close resolves `false`
-5. Code continues based on the result
+## Delete action with Inertia
 
-This makes your logic linear, readable, and safe.
+Use this pattern when the final action should call the server.
 
-## Modal Types
+::: code-group
 
-You can control the intent and color of the confirm button using `type`.
+```vue [Vue]
+<script setup lang="ts">
+import { router } from '@inertiajs/vue3';
+import { useConfirmation } from '@erag/inertia-toast-vue';
 
-### `danger` - Destructive Actions
+const modal = useConfirmation();
+
+const removePost = async (id: number) => {
+    const ok = await modal.confirm({
+        title: 'Delete post',
+        message: 'This action cannot be undone.',
+        type: 'danger',
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+    });
+
+    if (!ok) {
+        return;
+    }
+
+    router.delete(route('posts.destroy', id));
+};
+</script>
+```
+
+```tsx [React]
+import { router } from '@inertiajs/react';
+import { useConfirmation } from '@erag/inertia-toast-react';
+
+export default function PostsIndex() {
+    const confirmation = useConfirmation();
+
+    const removePost = async (id: number): Promise<void> => {
+        const ok = await confirmation.confirm({
+            title: 'Delete post',
+            message: 'This action cannot be undone.',
+            type: 'danger',
+            confirmText: 'Delete',
+            cancelText: 'Cancel',
+        });
+
+        if (!ok) {
+            return;
+        }
+
+        router.delete(route('posts.destroy', id));
+    };
+}
+```
+
+:::
+
+## What happens when you `await`
 
 ```ts
+const ok = await modal.confirm({ ... });
+```
+
+Flow:
+
+1. Your action starts.
+2. The modal opens.
+3. Code pauses at `await`.
+4. Confirm resolves `true`.
+5. Cancel or close resolves `false`.
+6. Your code continues with that result.
+
+## Modal types
+
+Use `type` to control the intent and button styling.
+
+::: code-group
+
+```ts [Vue]
 type: 'danger'
-```
-
-Use for:
-
-- Delete account
-- Remove data
-- Permanent actions
-
-### `warning` - Risky Actions
-
-```ts
 type: 'warning'
-```
-
-Use for:
-
-- Logout
-- Discard changes
-- Navigation with unsaved data
-
-### `info` - Neutral Confirmations
-
-```ts
 type: 'info'
+type: 'success'
 ```
 
-Use for:
+```ts [React]
+type: 'danger'
+type: 'warning'
+type: 'info'
+type: 'success'
+```
 
-- General confirmations
-- Informational prompts
+:::
 
-## Example: Logout Confirmation
+- `danger` for destructive actions
+- `warning` for risky actions
+- `info` for neutral confirmation
+- `success` for positive confirmation
 
-```ts
+## Logout example
+
+::: code-group
+
+```ts [Vue]
 const logout = async () => {
     const ok = await modal.confirm({
         title: 'Logout',
         message: 'You have unsaved changes. Do you really want to leave?',
         confirmText: 'Logout',
-        type: 'warning'
+        type: 'warning',
     });
 
     if (ok) {
@@ -146,25 +239,54 @@ const logout = async () => {
 };
 ```
 
-## Custom Icon
+```ts [React]
+const logout = async (): Promise<void> => {
+    const ok = await confirmation.confirm({
+        title: 'Logout',
+        message: 'You have unsaved changes. Do you really want to leave?',
+        confirmText: 'Logout',
+        type: 'warning',
+    });
 
-You can pass a custom SVG icon. When `icon` is provided, the default icons are not used.
+    if (ok) {
+        // Perform logout
+    }
+};
+```
 
-```ts
+:::
+
+## Custom icon
+
+Pass an SVG string if you want to replace the default icon.
+
+::: code-group
+
+```ts [Vue]
 await modal.confirm({
-  title: 'Custom Icon',
-  message: 'This modal uses a custom icon.',
-  icon: `<svg viewBox="0 0 24 24">...</svg>`
+    title: 'Custom Icon',
+    message: 'This modal uses a custom icon.',
+    icon: `<svg viewBox="0 0 24 24">...</svg>`,
 });
 ```
 
-## Modal Options Reference
+```ts [React]
+await confirmation.confirm({
+    title: 'Custom Icon',
+    message: 'This modal uses a custom icon.',
+    icon: `<svg viewBox="0 0 24 24">...</svg>`,
+});
+```
+
+:::
+
+## Modal options
 
 | Option | Type | Description |
 | --- | --- | --- |
 | `title` | `string` | Modal heading |
-| `message` | `string` | Modal message text |
+| `message` | `string` | Modal body text |
 | `confirmText` | `string` | Confirm button label |
 | `cancelText` | `string` | Cancel button label |
-| `type` | `'danger' \| 'warning' \| 'info'` | Button style and intent |
-| `icon` | `string` | Custom icon that overrides the default icon |
+| `type` | `'danger' \| 'warning' \| 'info' \| 'success'` | Style and intent |
+| `icon` | `string` | Custom icon that replaces the default icon |

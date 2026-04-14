@@ -1,103 +1,61 @@
 ---
 layout: home
 title: Laravel Inertia Toast Docs
-description: Official documentation for Laravel Inertia Toast, including installation, Laravel usage, Vue usage, API reference, and contribution guides.
+description: Official documentation for Laravel Inertia Toast, including installation, Laravel usage, Vue usage, React usage, API reference, and contribution guides.
 head:
   - - meta
     - name: description
-      content: Official documentation for Laravel Inertia Toast, including installation, Laravel usage, Vue usage, API reference, and contribution guides.
+      content: Official documentation for Laravel Inertia Toast, including installation, Laravel usage, Vue usage, React usage, API reference, and contribution guides.
 
 hero:
   name: "Laravel Inertia Toast"
-  text: "Notifications and confirmation dialogs for Laravel + Inertia + Vue 3"
+  text: "Notifications and confirmation dialogs for Laravel + Inertia + Vue 3 + React"
   tagline: "Simple toast messages and confirm dialogs for your Laravel Inertia app."
   actions:
     - theme: brand
       text: Get Started
       link: /demo
     - theme: alt
-      text: Vue Usage
-      link: /vue
-
-features:
-  - title: Laravel-first API
-    details: Use `toast()` or `InertiaToast` and let the package pass the message to Inertia for you.
-  - title: Low-config setup
-    details: Install it, add the Vue plugin once, and most of the setup is handled automatically.
-  - title: Vue 3 frontend plugin
-    details: One plugin setup gives you toasts, confirm dialogs, and Inertia flash handling.
-  - title: Practical defaults
-    details: It comes with useful defaults for toast types, positions, flash keys, and confirms.
+      text: React Usage
+      link: /react
 ---
 
-## Why this package
-
-`Laravel Inertia Toast` connects Laravel flash messages to an Inertia-powered Vue 3 UI without extra wiring in every page.
-
-It is built for apps that want:
-
-- a simple backend helper for redirect-based notifications
-- a Vue composable for client-side toasts
-- a reusable confirmation modal for destructive actions
-- automatic sharing through the Laravel `web` middleware group
-- minimal app-level configuration
-
-<div class="lit-grid">
+<div class="lit-grid lit-grid--compact">
+  <div class="lit-card lit-card--package">
+    <h3>Low Dependency Surface</h3>
+    <p>Built to fit the Laravel and Inertia stack you already use without adding heavy extra setup.</p>
+  </div>
+  <div class="lit-card lit-card--setup">
+    <h3>Almost Zero Config</h3>
+    <p>Add the package, register it once, and it works with your app structure in a familiar way.</p>
+  </div>
   <div class="lit-card lit-card--helper">
     <h3>Laravel Helper</h3>
     <p>Flash toast payloads from controllers with a single <code>toast()</code> call.</p>
   </div>
   <div class="lit-card lit-card--bridge">
-    <h3>Inertia Bridge</h3>
-    <p>Share toast data automatically through the <code>web</code> middleware group and render it on visits.</p>
+    <h3>Inertia Flash</h3>
+    <p>Share toast data through Inertia without page-level wiring.</p>
+  </div>
+  <div class="lit-card lit-card--vue">
+    <h3>Vue Setup</h3>
+    <p>Register the Vue plugin once for toasts and confirmation dialogs.</p>
+  </div>
+  <div class="lit-card lit-card--react">
+    <h3>React Setup</h3>
+    <p>Use the provider or initializer once in your React app.</p>
   </div>
   <div class="lit-card lit-card--typescript">
     <h3>Typed Frontend API</h3>
-    <p>Use typed plugin options, positions, modal options, and composables in Vue 3 projects.</p>
+    <p>Use typed plugin options, positions, modal options, and composables in Vue 3 or React projects.</p>
   </div>
   <div class="lit-card lit-card--confirm">
-    <h3>Confirmation Modal</h3>
-    <p>Handle delete and danger flows with a promise-based confirm dialog that fits Inertia actions.</p>
-  </div>
-  <div class="lit-card lit-card--react">
-    <h3>React Support</h3>
-    <p>Coming soon. The current release is built for Laravel + Inertia + Vue 3.</p>
+    <h3>Confirm Flows</h3>
+    <p>Handle delete and danger actions with promise-based confirmations.</p>
   </div>
 </div>
 
-## Key features
 
-- `toast()` helper for Laravel redirects and post-action feedback
-- `InertiaToast::flash()` facade access when you want to inspect the resolved payload
-- automatic Inertia prop sharing through package middleware
-- one-time Vue plugin registration for toast UI and confirmation modal
-- support for `success`, `error`, `warning`, and `info` toast types
-- support for six positions from `top-left` to `bottom-right`
-- compatibility with standard Laravel session flash keys
-- promise-based confirmation flow for delete and danger actions
-
-## Configuration and dependencies
-
-This package aims for low configuration, not zero dependencies.
-
-### App-side configuration
-
-- no manual service provider registration in a normal Laravel app
-- no manual middleware registration in a normal Laravel app
-- one Vue plugin registration in your Inertia entry file
-- optional default position configuration on the Vue plugin
-
-### Laravel dependencies
-
-- PHP `>= 8.1`
-- Laravel `10`, `11`, `12`, or `13`
-- `inertiajs/inertia-laravel` `^1.3`, `^2.0`, or `^3.0`
-
-### Vue dependencies
-
-- Vue `3`
-- `@inertiajs/core` `^2.0` or `^3.0`
-- `@inertiajs/vue3` `^2.0` or `^3.0`
 
 ## Quick example
 
@@ -117,8 +75,8 @@ public function store()
 ```ts [resources/js/app.ts]
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
-import ToastPlugin from '@erag/inertia-toast';
-import '@erag/inertia-toast/dist/style.css';
+import ToastPlugin from '@erag/inertia-toast-vue';
+import '@erag/inertia-toast-vue/style.css';
 
 createInertiaApp({
     resolve: (name) => {
@@ -138,10 +96,15 @@ createInertiaApp({
 
 ```vue [Vue Component]
 <script setup lang="ts">
-import { useConfirmation } from '@erag/inertia-toast';
+import { useConfirmation, useToast } from '@erag/inertia-toast-vue';
 import { router } from '@inertiajs/vue3';
 
 const { confirm } = useConfirmation();
+const toast = useToast();
+
+const showToast = () => {
+    toast.success('Profile updated successfully', 'Saved');
+};
 
 const destroyPost = async (id: number) => {
     const accepted = await confirm({
@@ -158,28 +121,58 @@ const destroyPost = async (id: number) => {
     router.delete(route('posts.destroy', id));
 };
 </script>
+
+<template>
+    <button type="button" @click="showToast">
+        Show toast
+    </button>
+</template>
+```
+
+```tsx [React Page]
+import { router } from '@inertiajs/react';
+import { useConfirmation, useToast } from '@erag/inertia-toast-react';
+
+export default function PostsIndex() {
+    const toast = useToast();
+    const confirmation = useConfirmation();
+
+    const showToast = () => {
+        toast.success('Profile updated successfully', 'Saved');
+    };
+
+    const destroyPost = async (id: number) => {
+        const accepted = await confirmation.confirm({
+            title: 'Delete post',
+            message: 'This action cannot be undone.',
+            type: 'danger',
+            confirmText: 'Delete',
+        });
+
+        if (!accepted) {
+            toast.info('Delete cancelled', 'Cancelled');
+            return;
+        }
+
+        router.delete(route('posts.destroy', id));
+    };
+
+    return <button onClick={showToast}>Show toast</button>;
+}
 ```
 
 :::
 
-## What happens automatically
 
-1. Laravel flashes a `toast` payload into the session.
-2. The package middleware shares that payload with Inertia as `props.toast`.
-3. The Vue plugin listens for the initial page payload and later Inertia success events.
-4. The toast container renders the message without page-specific setup.
 
-## Documentation map
+## Why this package
 
-- [Installation](/installation): install both package sides and register the Vue plugin
-- [Laravel Usage](/laravel): helper, facade, flash payloads, and redirect patterns
-- [Vue Usage](/vue): plugin setup, composables, confirmations, and component examples
-- [API Reference](/api-reference): supported types, positions, payload shape, and method signatures
+`Laravel Inertia Toast` connects Laravel flash messages to an Inertia-powered Vue 3 or React UI without extra wiring in every page.
 
-## Contributing
+It is built for apps that want:
 
-Want to contribute to the package?
-
-- Read the full guide at [Contributing](/contributing)
-- Improve Laravel, Vue, or documentation parts of the repository
-- Submit a focused pull request with clear changes
+- a simple backend helper for redirect-based notifications
+- a Vue or React API for client-side toasts
+- a reusable confirmation modal for destructive actions
+- automatic sharing through the Laravel `web` middleware group
+- minimal app-level configuration

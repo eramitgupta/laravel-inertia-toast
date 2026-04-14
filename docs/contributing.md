@@ -1,10 +1,10 @@
 ---
 title: Contributing Guide
-description: Learn how to contribute to Laravel Inertia Toast, including docs workflow, pull request guidelines, local development, and package contribution notes.
+description: Learn how to contribute to Laravel Inertia Toast, including docs workflow, pull request guidelines, local development, and package contribution notes for Laravel, Vue, and React.
 head:
   - - meta
     - name: description
-      content: Learn how to contribute to Laravel Inertia Toast, including docs workflow, pull request guidelines, local development, and package contribution notes.
+      content: Learn how to contribute to Laravel Inertia Toast, including docs workflow, pull request guidelines, local development, and package contribution notes for Laravel, Vue, and React.
 ---
 
 # Contributing
@@ -17,6 +17,7 @@ Thank you for considering contributing to Laravel Inertia Toast.
 - fix examples, wording, and usage notes
 - report or clarify Laravel integration issues
 - suggest Vue API improvements
+- suggest React API improvements
 - propose package features and bug fixes
 
 ## Repository Scope
@@ -29,7 +30,7 @@ In this branch you can contribute:
 - navigation, theme, and styling inside `docs/.vitepress`
 - examples and contributor-facing documentation
 
-If you want to contribute to Laravel or Vue package behavior, open a pull request with:
+If you want to contribute to Laravel, Vue, or React package behavior, open a pull request with:
 
 - a clear explanation of the change
 - documentation updates for the new behavior
@@ -83,3 +84,4 @@ composer lint
 - Installation: [https://eramitgupta.github.io/laravel-inertia-toast/installation](https://eramitgupta.github.io/laravel-inertia-toast/installation)
 - Laravel guide: [https://eramitgupta.github.io/laravel-inertia-toast/laravel](https://eramitgupta.github.io/laravel-inertia-toast/laravel)
 - Vue guide: [https://eramitgupta.github.io/laravel-inertia-toast/vue](https://eramitgupta.github.io/laravel-inertia-toast/vue)
+- React guide: [https://eramitgupta.github.io/laravel-inertia-toast/react](https://eramitgupta.github.io/laravel-inertia-toast/react)
