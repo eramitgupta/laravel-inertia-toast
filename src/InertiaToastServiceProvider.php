@@ -2,7 +2,9 @@
 
 namespace LaravelInertiaToast;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Support\ServiceProvider;
 use LaravelInertiaToast\Facades\InertiaToast;
 use LaravelInertiaToast\Middleware\ShareInertiaToastMiddleware;
@@ -40,9 +42,12 @@ class InertiaToastServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * @throws BindingResolutionException
+     */
     protected function registerMiddleware(): void
     {
-        $router = $this->app['router'];
-        $router->pushMiddlewareToGroup('web', ShareInertiaToastMiddleware::class);
+        $kernel = $this->app->make(HttpKernel::class);
+        $kernel->pushMiddleware(ShareInertiaToastMiddleware::class);
     }
 }

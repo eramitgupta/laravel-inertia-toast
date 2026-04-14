@@ -1,5 +1,5 @@
 {
-    "name": "@erag/inertia-toast",
+    "name": "@erag/inertia-toast-vue",
     "version": "1.0.0",
     "type": "module",
     "sideEffects": false,
@@ -39,6 +39,6 @@
         "prettier": "^3.8.1",
         "typescript": "^6.0.2",
         "@vue/compiler-sfc": "^3.5.32",
-        "vite": "^8.0.3"
+        "vite": "^8.0.0"
     }
 }
