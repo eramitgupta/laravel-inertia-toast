@@ -3,8 +3,8 @@
 namespace LaravelInertiaToast;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use LaravelInertiaToast\Facades\InertiaToast;
 use LaravelInertiaToast\Middleware\ShareInertiaToastMiddleware;
