@@ -4,7 +4,7 @@ Laravel Inertia Toast is a lightweight package for toast notifications and confi
 
 ## Documentation
 
-Explore the full documentation at:
+Explore the full documentation and demo at:
 
 [https://eramitgupta.github.io/laravel-inertia-toast/](https://eramitgupta.github.io/laravel-inertia-toast/)
 
