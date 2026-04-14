@@ -1,10 +1,10 @@
 # Laravel Inertia Toast
 
-Laravel Inertia Toast is a lightweight package for toast notifications and confirmation dialogs in Laravel, Inertia.js, and Vue 3 applications.
+Laravel Inertia Toast is a lightweight package for toast notifications and confirmation dialogs in Laravel, Inertia.js applications with Vue 3 and React support.
 
 ## Documentation
 
-Explore the full documentation and demo at:
+Explore full documentation and live demo:
 
 [https://eramitgupta.github.io/laravel-inertia-toast/](https://eramitgupta.github.io/laravel-inertia-toast/)
 
