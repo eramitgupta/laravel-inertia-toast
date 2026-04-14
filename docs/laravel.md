@@ -148,6 +148,5 @@ That means your Inertia page payload includes `props.toast` when a toast exists.
 
 ## Notes
 
-- You do not need to register the package middleware manually in a normal Laravel app.
 - The package is designed for redirect and visit flows where flash session data is already natural.
 - A toast with `duration` set to `0` remains visible until removed on the client side.

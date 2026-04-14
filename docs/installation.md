@@ -48,6 +48,7 @@ composer require erag/laravel-inertia-toast
 ```
 
 Laravel package discovery registers the service provider automatically.
+You do not need to register any middleware manually.
 
 ## 2. Install the frontend package
 
