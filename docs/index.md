@@ -1,16 +1,26 @@
 ---
 layout: home
 title: Laravel Inertia Toast Docs
-description: Official documentation for Laravel Inertia Toast, including installation, Laravel usage, Vue usage, React usage, API reference, and contribution guides.
+description: Official Laravel Inertia Toast documentation for dynamic toast notifications, confirmation dialogs, Laravel integration, Vue 3 usage, React usage, and API reference.
+keywords:
+  - laravel inertia toast docs
+  - laravel toast notifications
+  - inertia toast package
+  - vue 3 toast plugin
+  - react toast package
+  - confirmation dialog docs
 head:
   - - meta
     - name: description
-      content: Official documentation for Laravel Inertia Toast, including installation, Laravel usage, Vue usage, React usage, API reference, and contribution guides.
+      content: Official Laravel Inertia Toast documentation for dynamic toast notifications, confirmation dialogs, Laravel integration, Vue 3 usage, React usage, and API reference.
+  - - meta
+    - name: keywords
+      content: laravel inertia toast docs, laravel toast notifications, inertia toast package, vue 3 toast plugin, react toast package, confirmation dialog docs
 
 hero:
   name: "Laravel Inertia Toast"
   text: "Notifications and confirmation dialogs for Laravel + Inertia + Vue 3 + React"
-  tagline: "Simple toast messages and confirm dialogs for your Laravel Inertia app."
+  tagline: "Dynamic toast messages and confirm dialogs for your Laravel Inertia app."
   actions:
     - theme: brand
       text: Get Started
@@ -163,6 +173,55 @@ export default function PostsIndex() {
 
 :::
 
+### All toast props are dynamic
+
+The Laravel helper supports full per-toast customization:
+
+```php
+toast(
+    string $message,
+    string $type = 'success',
+    ?string $title = null,
+    int $duration = 3000,
+    ?string $position = null
+);
+```
+
+That means:
+
+- `message` is the main text shown in the toast
+- `type` changes the variant like `success`, `error`, `warning`, or `info`
+- `title` adds an optional heading
+- `duration` controls auto close time in milliseconds
+- `position` can override the default plugin position for one specific toast
+
+### Full dynamic example
+
+```php
+public function store()
+{
+    // Persist your record...
+
+    toast(
+        message: 'Post created successfully',
+        type: 'success',
+        title: 'Saved',
+        duration: 3000,
+        position: 'top-right',
+    );
+
+    return redirect()->route('posts.index');
+}
+```
+
+With the same helper, you can also send different kinds of toasts without changing frontend setup:
+
+```php
+toast('Draft saved automatically', 'info', 'Auto Save', 2500, 'bottom-right');
+toast('Unable to publish post', 'error', 'Publish failed', 5000, 'top-center');
+toast('Connection lost', 'warning', 'Network issue', 0, 'bottom-center');
+```
+
 
 
 ## Why this package
@@ -176,3 +235,4 @@ It is built for apps that want:
 - a reusable confirmation modal for destructive actions
 - automatic sharing through the Laravel `web` middleware group
 - minimal app-level configuration
+- dynamic props for every individual toast

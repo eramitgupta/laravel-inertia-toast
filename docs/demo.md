@@ -1,11 +1,18 @@
 ---
 title: Demo
-description: Quick demo page for Laravel Inertia Toast. See how toast messages and confirmation modals look in action.
+description: Watch the Laravel Inertia Toast demo to see server-side toasts, client-side notifications, multiple positions, and confirmation modal flows in action.
 keywords:
   - laravel inertia toast demo
   - vue toast demo
   - react toast demo
   - confirmation modal demo
+head:
+  - - meta
+    - name: description
+      content: Watch the Laravel Inertia Toast demo to see server-side toasts, client-side notifications, multiple positions, and confirmation modal flows in action.
+  - - meta
+    - name: keywords
+      content: laravel inertia toast demo, vue toast demo, react toast demo, confirmation modal demo
 ---
 
 # Demo

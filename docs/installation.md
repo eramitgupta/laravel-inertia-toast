@@ -1,10 +1,19 @@
 ---
 title: Installation Guide
-description: Install Laravel Inertia Toast in a Laravel + Inertia app with Vue or React.
+description: Install Laravel Inertia Toast in a Laravel and Inertia app with Vue 3 or React, including backend package setup and frontend package registration.
+keywords:
+  - laravel inertia toast installation
+  - install laravel toast package
+  - inertia toast setup
+  - vue toast installation
+  - react toast installation
 head:
   - - meta
     - name: description
-      content: Install Laravel Inertia Toast in a Laravel + Inertia app with Vue or React.
+      content: Install Laravel Inertia Toast in a Laravel and Inertia app with Vue 3 or React, including backend package setup and frontend package registration.
+  - - meta
+    - name: keywords
+      content: laravel inertia toast installation, install laravel toast package, inertia toast setup, vue toast installation, react toast installation
 ---
 
 # Installation

@@ -1,10 +1,19 @@
 ---
 title: Vue Usage
-description: Learn how to use the Vue 3 frontend plugin, toast composables, confirmation modal, and Inertia flash bridge in Laravel Inertia Toast.
+description: Learn how to use the Vue 3 frontend package for Laravel Inertia Toast, including plugin registration, toast composables, confirmation modal usage, and flash bridge behavior.
+keywords:
+  - vue inertia toast
+  - vue 3 toast plugin
+  - vue confirmation modal
+  - inertia vue toast
+  - laravel inertia toast vue
 head:
   - - meta
     - name: description
-      content: Learn how to use the Vue 3 frontend plugin, toast composables, confirmation modal, and Inertia flash bridge in Laravel Inertia Toast.
+      content: Learn how to use the Vue 3 frontend package for Laravel Inertia Toast, including plugin registration, toast composables, confirmation modal usage, and flash bridge behavior.
+  - - meta
+    - name: keywords
+      content: vue inertia toast, vue 3 toast plugin, vue confirmation modal, inertia vue toast, laravel inertia toast vue
 ---
 
 # Vue Usage

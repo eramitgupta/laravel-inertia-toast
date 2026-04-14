@@ -1,10 +1,18 @@
 ---
 title: Contributing Guide
-description: Learn how to contribute to Laravel Inertia Toast, including docs workflow, pull request guidelines, local development, and package contribution notes for Laravel, Vue, and React.
+description: Learn how to contribute to Laravel Inertia Toast, including documentation workflow, pull request guidelines, local development, and contribution expectations.
+keywords:
+  - laravel inertia toast contributing
+  - docs contribution guide
+  - vitepress docs contribution
+  - package contribution guide
 head:
   - - meta
     - name: description
-      content: Learn how to contribute to Laravel Inertia Toast, including docs workflow, pull request guidelines, local development, and package contribution notes for Laravel, Vue, and React.
+      content: Learn how to contribute to Laravel Inertia Toast, including documentation workflow, pull request guidelines, local development, and contribution expectations.
+  - - meta
+    - name: keywords
+      content: laravel inertia toast contributing, docs contribution guide, vitepress docs contribution, package contribution guide
 ---
 
 # Contributing

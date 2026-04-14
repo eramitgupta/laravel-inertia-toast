@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://eramitgupta.github.io/laravel-inertia-toast/sitemap.xml

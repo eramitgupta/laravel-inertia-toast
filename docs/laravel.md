@@ -1,10 +1,19 @@
 ---
 title: Laravel Usage
-description: Learn how to use the Laravel side of Laravel Inertia Toast with the toast helper, InertiaToast facade, flash payloads, and redirect flows.
+description: Learn how to use Laravel Inertia Toast on the Laravel side with the toast helper, session flash payloads, redirect flows, and Inertia shared props.
+keywords:
+  - laravel inertia toast helper
+  - laravel toast helper
+  - inertia flash toast
+  - laravel redirect toast
+  - laravel shared toast props
 head:
   - - meta
     - name: description
-      content: Learn how to use the Laravel side of Laravel Inertia Toast with the toast helper, InertiaToast facade, flash payloads, and redirect flows.
+      content: Learn how to use Laravel Inertia Toast on the Laravel side with the toast helper, session flash payloads, redirect flows, and Inertia shared props.
+  - - meta
+    - name: keywords
+      content: laravel inertia toast helper, laravel toast helper, inertia flash toast, laravel redirect toast, laravel shared toast props
 ---
 
 # Laravel Usage
